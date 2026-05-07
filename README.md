@@ -12,10 +12,10 @@ booth is a full-stack internal ticketing system app I am building, using React/T
 
 ```bash
 ## Clone the repository
-git clone https://github.com/CallumB04/ticket-system.git
+git clone https://github.com/CallumB04/booth.git
 
 ## Navigate to the project directory
-cd ticket-system
+cd booth
 
 ## Start the containers
 docker compose up --build
