@@ -1,6 +1,6 @@
-# ticket-system (booth)
+# booth
 
-'booth' is a full-stack internal ticketing system app I am building, using React/TypeScript (frontend) and Go (backend). The app will be AI powered, targeted at teams with varying technical knowledge, to assist in translating non-technical requests into technical solutions.
+booth is a full-stack internal ticketing system app I am building, using React/TypeScript (frontend) and Go (backend). The app will be AI powered, targeted at teams with varying technical knowledge, to assist in translating non-technical requests into technical solutions.
 
 ## Installation and Setup
 
