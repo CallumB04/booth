@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/Home/HomePage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
+import Footer from "./layout/Footer/Footer";
 import Navbar from "./layout/Navbar/Navbar";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import TeamsPage from "./pages/Teams/TeamsPage";
@@ -48,6 +49,8 @@ function App() {
                 {/* Not found page - all un-routed paths */}
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
+            {/* Global footer - rendered on every page */}
+            <Footer />
         </BrowserRouter>
     );
 }
