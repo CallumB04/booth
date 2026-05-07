@@ -10,22 +10,23 @@
     --navbar-height: 64px;
     --sidebar-width: 240px;
 
-    /* Accent (only color in system) */
+    /* Accent */
     --highlight-color: #22c55e;
     --highlight-color-hover: #16a34a;
     --highlight-color-soft: #bbf7d0;
 
-    /* Text (true neutral, no blue tint) */
+    /* Text */
     --primary-text-color: #0a0a0a;
     --secondary-text-color: #525252;
+    --tertiary-text-color: #737373;
     --disabled-text-color: #a3a3a3;
 
-    /* Backgrounds (pure neutral) */
+    /* Backgrounds */
     --background-color: #fafafa;
     --surface-color: #ffffff;
     --surface-muted-color: #f5f5f5;
 
-    /* Borders (neutral grey scale) */
+    /* Borders */
     --layout-border-color: #e5e5e5;
     --surface-border-color: #aaa;
     --surface-border-hover-color: #262626;
@@ -50,7 +51,7 @@
 }
 
 .dark {
-    /* Accent pops more in dark */
+    /* Accent */
     --highlight-color: #22c55e;
     --highlight-color-hover: #86efac;
     --highlight-color-soft: #052e16;
@@ -58,9 +59,10 @@
     /* Text */
     --primary-text-color: #f5f5f5;
     --secondary-text-color: #a8a8a8;
+    --tertiary-text-color: #888888;
     --disabled-text-color: #6e6e6e;
 
-    /* Backgrounds (warm charcoal — matches landing page #202020 base) */
+    /* Backgrounds */
     --background-color: #202020;
     --surface-color: #2a2a2a;
     --surface-muted-color: #333333;
@@ -89,6 +91,26 @@ body {
     @apply bg-background;
 }
 
+/* Scroll-in animation for AnimateInView wrapper */
+[data-in-view] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+        opacity 600ms ease-out,
+        transform 600ms ease-out;
+}
+[data-in-view="true"] {
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+    [data-in-view] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
 .input-default {
     @apply placeholder:text-text-placeholder text-text-primary border-input-border hover:border-input-border-hover bg-surface focus:outline-highlight disabled:text-text-disabled disabled:hover:border-input-border h-11 border px-3 font-mono text-[13px] tracking-wide transition-all focus:outline-1 disabled:cursor-not-allowed;
 }
@@ -103,6 +125,28 @@ body {
     );
 }
 
+@keyframes home-marquee-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-home-marquee {
+    animation: home-marquee-scroll 32s linear infinite;
+}
+
+.home-cta-dots {
+    background-image: radial-gradient(
+        circle,
+        var(--surface-border-color) 1px,
+        transparent 1px
+    );
+    background-size: 24px 24px;
+}
+
 @theme {
     /* -- Colors -- */
 
@@ -115,6 +159,7 @@ body {
     /* Text */
     --color-text-primary: var(--primary-text-color);
     --color-text-secondary: var(--secondary-text-color);
+    --color-text-tertiary: var(--tertiary-text-color);
     --color-text-disabled: var(--disabled-text-color);
     --color-text-placeholder: var(--disabled-text-color);
 
