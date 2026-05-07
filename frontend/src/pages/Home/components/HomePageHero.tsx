@@ -24,9 +24,9 @@ const HomePageHero = ({ className }: HomePageHeroProps) => {
                     the AI-powered ticket system for cross-functional teams.
                 </h1>
                 <p className="text-text-secondary max-w-2xl text-lg">
-                    organsations with cross-functional teams are always asking
-                    your engineers for things in their own way. booth translates
-                    their non-technical requests into technical solutions -
+                    organisations with cross-functional teams are always asking
+                    engineers for things in their own way. booth translates
+                    these non-technical requests into technical solutions -
                     creating structured tickets, and assigning them to the
                     correct people.
                 </p>
