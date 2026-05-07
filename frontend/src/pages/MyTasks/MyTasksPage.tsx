@@ -11,7 +11,6 @@ const MyTasksPage = () => {
             <Page
                 title="My Tasks"
                 description="Everything assigned to you, across every team"
-                hasSidebar
             ></Page>
         </>
     );

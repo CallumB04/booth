@@ -27,7 +27,19 @@ interface SidebarProps {
 
 const Sidebar = ({ className }: SidebarProps) => {
     const location = useLocation();
-    const { isMobileSidebarOpen, closeMobileSidebar } = useSidebar();
+    const {
+        isMobileSidebarOpen,
+        closeMobileSidebar,
+        registerSidebar,
+        unregisterSidebar,
+    } = useSidebar();
+
+    // Register this sidebar so layout components (Footer, Page) can offset
+    // around it without needing a hardcoded list of sidebar routes.
+    useEffect(() => {
+        registerSidebar();
+        return () => unregisterSidebar();
+    }, [registerSidebar, unregisterSidebar]);
 
     // close mobile sidebar if location changes
     useEffect(() => {

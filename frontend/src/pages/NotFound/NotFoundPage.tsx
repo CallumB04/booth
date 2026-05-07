@@ -8,7 +8,7 @@ const NotFoundPage = () => {
     return (
         <>
             <Sidebar />
-            <Page title="404" description="Page not found" hasSidebar></Page>
+            <Page title="404" description="Page not found"></Page>
         </>
     );
 };

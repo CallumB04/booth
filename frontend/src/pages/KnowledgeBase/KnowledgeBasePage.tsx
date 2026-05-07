@@ -11,7 +11,6 @@ const KnowledgeBasePage = () => {
             <Page
                 title="Knowledge Base"
                 description="What booth knows about your organisation. Review it, correct it, add to it"
-                hasSidebar
             ></Page>
         </>
     );

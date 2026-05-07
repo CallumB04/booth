@@ -11,7 +11,6 @@ const SettingsPage = () => {
             <Page
                 title="Settings"
                 description="View and manage settings for your organisation and teams"
-                hasSidebar
             ></Page>
         </>
     );

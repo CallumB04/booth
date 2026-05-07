@@ -11,7 +11,6 @@ const DashboardPage = () => {
             <Page
                 title="Dashboard"
                 description="An overview of your work and your organisation"
-                hasSidebar
             ></Page>
         </>
     );

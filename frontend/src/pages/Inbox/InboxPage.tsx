@@ -11,7 +11,6 @@ const InboxPage = () => {
             <Page
                 title="Inbox"
                 description="Your mentions, updates, and things that need a response"
-                hasSidebar
             ></Page>
         </>
     );

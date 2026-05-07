@@ -11,7 +11,6 @@ const RequestPage = () => {
             <Page
                 title="New Request"
                 description="Make a request and booth will turn it into structured tickets for the right teams"
-                hasSidebar
             ></Page>
         </>
     );

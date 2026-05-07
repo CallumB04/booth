@@ -19,7 +19,6 @@ const TicketsPage = () => {
             <Page
                 title="Tickets"
                 description="Search, filter, and browse every ticket in your organisation"
-                hasSidebar
             >
                 {/* Search bar and key buttons */}
                 <div className="flex w-full justify-between gap-4">

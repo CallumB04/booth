@@ -11,7 +11,6 @@ const ActivityPage = () => {
             <Page
                 title="Activity"
                 description="An overview of everything happening across your organisation"
-                hasSidebar
             ></Page>
         </>
     );
