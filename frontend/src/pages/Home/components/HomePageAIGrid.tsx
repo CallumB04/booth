@@ -32,7 +32,7 @@ const capabilities: AICapability[] = [
         icon: <MessagesSquareIcon size={20} className="text-highlight" />,
         title: "chat mode",
         description:
-            "for messier requests, the chat interface goes back and forth until everything's clear. then writes the tickets in one go.",
+            "for complex or messier requests, the chat interface goes back and forth until everything's clear. then writes the tickets in one go.",
     },
     {
         icon: <LayersIcon size={20} className="text-highlight" />,
@@ -67,13 +67,13 @@ const HomePageAIGrid = ({ className }: HomePageAIGridProps) => {
             <div className="max-w-3xl space-y-3">
                 <h2 className="text-text-primary text-3xl font-medium tracking-tight sm:text-4xl">
                     an AI that actually knows{" "}
-                    <span className="text-highlight">your company.</span>
+                    <span className="text-highlight">your company</span>
                 </h2>
                 <p className="text-text-secondary text-lg">
                     every ticket, every conversation, and every external
                     resource you import becomes part of your company's context.
                     booth uses it to improve sorting, write better tickets and
-                    assign them to the right people.
+                    assign them to the right people
                 </p>
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

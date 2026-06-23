@@ -52,12 +52,12 @@ const HomePageIntegrations = ({ className }: HomePageIntegrationsProps) => {
             <HomePageSectionLabel label="integrations" />
             <div className="max-w-3xl space-y-3">
                 <h2 className="text-text-primary text-3xl font-medium tracking-tight sm:text-4xl">
-                    fits inside the tools your team already uses.
+                    fits inside the tools your team already uses
                 </h2>
                 <p className="text-text-secondary text-lg">
                     create requests from external chat tools, pull notes from
                     your meetings, and sync the resulting tickets to wherever
-                    your team tracks work.
+                    your team tracks work
                 </p>
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">

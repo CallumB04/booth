@@ -13,11 +13,11 @@ const HomePagePricing = ({ className }: HomePagePricingProps) => {
             <HomePageSectionLabel label="pricing" />
             <div className="max-w-3xl space-y-3">
                 <h2 className="text-text-primary text-3xl font-medium tracking-tight sm:text-4xl">
-                    simple pricing. no per-seat surprises.
+                    simple pricing
                 </h2>
                 <p className="text-text-secondary text-lg">
                     start free, scale when you're ready. every plan includes
-                    smart inbox, integrations, and unlimited tickets.
+                    smart inbox, integrations, and unlimited tickets
                 </p>
             </div>
             <div className="mx-auto grid max-w-4xl grid-cols-1 items-stretch gap-6 md:grid-cols-2">
