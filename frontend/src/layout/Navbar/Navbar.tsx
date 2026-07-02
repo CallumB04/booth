@@ -55,6 +55,7 @@ const Navbar = ({ className }: NavbarProps) => {
             const notis = await fetchNotifications();
             return notis ?? [];
         },
+        enabled: !!user?.id, // only fetch if logged in
     });
 
     return (
