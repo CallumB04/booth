@@ -23,12 +23,15 @@ jobs:
             - name: Setup Node
               uses: actions/setup-node@v4
               with:
-                  node-version: 20
+                  node-version: 22
                   cache: npm
                   cache-dependency-path: frontend/package-lock.json
 
             - name: Install Dependencies
               run: npm ci
+
+            - name: Lint (ESLint)
+              run: npm run lint
 
             - name: Test (Vitest)
               run: npm run test -- --run
@@ -52,6 +55,9 @@ jobs:
                   go-version: "1.25.1"
                   cache: true
                   cache-dependency-path: backend/go.sum
+
+            - name: Vet
+              run: go vet ./...
 
             - name: Test
               run: go test ./... -race -count=1
