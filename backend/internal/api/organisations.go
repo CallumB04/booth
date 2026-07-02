@@ -31,7 +31,7 @@ func handleFetchOrganisations(db *pgxpool.Pool) http.HandlerFunc {
 		// Query database for organisations this user is a member within.
 		// $1 - Authenticated User's ID
 		rows, err := db.Query(r.Context(), `
-			select o.id, o.name, o.slug, o.logo_url, o.created_by, o.created_at
+			select o.id, o.name, o.logo_url, o.created_by, o.created_at
 			from public.organisations o
 			join public.organisation_members om
     			on om.organisation_id = o.id
@@ -51,7 +51,7 @@ func handleFetchOrganisations(db *pgxpool.Pool) http.HandlerFunc {
 		var orgArr []models.Organisation
 		for rows.Next() {
 			var org models.Organisation
-			if err := rows.Scan(&org.ID, &org.Name, &org.Slug, &org.LogoURL, &org.CreatedBy, &org.CreatedAt); err != nil {
+			if err := rows.Scan(&org.ID, &org.Name, &org.LogoURL, &org.CreatedBy, &org.CreatedAt); err != nil {
 				log.Printf("FETCH ORGS error: %v", err)
 				util.ErrorResponse(w, http.StatusInternalServerError, "db error")
 				return
@@ -166,26 +166,17 @@ func handleCreateOrganisation(db *pgxpool.Pool) http.HandlerFunc {
 			return
 		}
 
-		// Create slug
-		// TODO: Ensure slug is truly unique
-		slug, slugErr := util.CreateSlug(body.Name)
-		if slugErr != nil {
-			util.ErrorResponse(w, http.StatusInternalServerError, "error creating organisation")
-			return
-		}
-
 		// Insert new organisation into db and return the inserted row.
 		// $1 - Organisation name
-		// $2 - Organisation Slug
-		// $3 - Organisation Logo URL (optional)
-		// $4 - Authenticated User's ID
+		// $2 - Organisation Logo URL (optional)
+		// $3 - Authenticated User's ID
 		var org models.Organisation
 		err := db.QueryRow(r.Context(), `
-			INSERT INTO public.organisations (name, slug, logo_url, created_by)
-			VALUES ($1, $2, $3, $4)
-			RETURNING id, name, slug, logo_url, created_by, created_at
-		`, body.Name, slug, body.LogoURL, userID).Scan(
-			&org.ID, &org.Name, &org.Slug, &org.LogoURL, &org.CreatedBy, &org.CreatedAt,
+			INSERT INTO public.organisations (name, logo_url, created_by)
+			VALUES ($1, $2, $3)
+			RETURNING id, name, logo_url, created_by, created_at
+		`, body.Name, body.LogoURL, userID).Scan(
+			&org.ID, &org.Name, &org.LogoURL, &org.CreatedBy, &org.CreatedAt,
 		)
 		if err != nil {
 			log.Printf("CREATE ORG db error: %v", err)
