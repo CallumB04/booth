@@ -193,6 +193,8 @@ func handleCreateOrganisation(db *pgxpool.Pool) http.HandlerFunc {
 			return
 		}
 
+		// NOTE: Supabase trigger handles adding creator as a member in the organisation_members table
+
 		// Send created organisation to client.
 		util.JSONResponse(w, http.StatusCreated, org)
 	}
