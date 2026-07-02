@@ -62,7 +62,7 @@ const Sidebar = ({ className }: SidebarProps) => {
     useEffect(() => {
         if (
             !activeOrganisation ||
-            !organisations?.includes(activeOrganisation)
+            !organisations?.some((org) => org.id === activeOrganisation.id)
         ) {
             if (organisations && organisations.length > 0) {
                 setActiveOrganisation(organisations[0]);
