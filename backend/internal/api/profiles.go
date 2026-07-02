@@ -71,6 +71,7 @@ func handleUpdateUserProfile(db *pgxpool.Pool) http.HandlerFunc {
 		// Decode request body into request object
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 			util.ErrorResponse(w, http.StatusBadRequest, "invalid request body")
+			return
 		}
 
 		// Build query to update profile in db
@@ -102,6 +103,7 @@ func handleUpdateUserProfile(db *pgxpool.Pool) http.HandlerFunc {
 		// Return error if no valid profile changes were provided
 		if len(args) == 0 {
 			util.ErrorResponse(w, http.StatusBadRequest, "invalid request body")
+			return
 		}
 
 		// Remove trailing comma

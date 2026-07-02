@@ -6,7 +6,6 @@ import type { UserProfile } from "./profiles";
 export type Organisation = {
     id: string;
     name: string;
-    slug: string;
     logo_url: string;
     created_by: string; // uuid (owner)
     created_at: string; // ISO string
