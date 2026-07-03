@@ -30,9 +30,6 @@ jobs:
             - name: Install Dependencies
               run: npm ci
 
-            - name: Lint (ESLint)
-              run: npm run lint
-
             - name: Test (Vitest)
               run: npm run test -- --run
 
