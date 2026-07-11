@@ -20,6 +20,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useUser } from "../../contexts/UserContext";
 import { useOrganisation } from "../../contexts/OrganisationContext";
 import Dropdown from "../../components/Dropdown/Dropdown";
+import OrganisationDropdownIcon from "./components/OrganisationDropdownIcon";
 
 interface SidebarProps {
     className?: string;
@@ -84,11 +85,19 @@ const Sidebar = ({ className }: SidebarProps) => {
             {organisations && organisations?.length >= 2 && (
                 <SidebarGroup title="Select Organisation">
                     <Dropdown
+                        key={activeOrganisation?.id}
                         options={organisations?.map((o) => {
-                            return { value: o.id, label: o.name };
+                            return {
+                                value: o.id,
+                                label: o.name,
+                                description: "free · 4 users",
+                                icon: (
+                                    <OrganisationDropdownIcon name={o.name} />
+                                ),
+                            };
                         })}
-                        className="h-10! w-full"
-                        value={activeOrganisation?.id}
+                        className="bg-background! w-full"
+                        defaultValue={activeOrganisation?.id}
                         onChange={(val) =>
                             setActiveOrganisation(
                                 organisations.find((o) => o.id === val)
