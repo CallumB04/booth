@@ -112,7 +112,7 @@ body {
 }
 
 .input-default {
-    @apply placeholder:text-text-placeholder text-text-primary border-input-border hover:border-input-border-hover bg-surface focus:outline-highlight disabled:text-text-disabled disabled:hover:border-input-border h-11 border px-3 font-mono text-[13px] tracking-wide transition-all focus:outline-1 disabled:cursor-not-allowed;
+    @apply placeholder:text-text-placeholder text-text-primary border-input-border hover:border-input-border-hover bg-surface focus:outline-highlight disabled:text-text-disabled disabled:hover:border-input-border h-11 rounded-md border px-3 font-mono text-[13px] tracking-wide transition-all focus:outline-1 disabled:cursor-not-allowed;
 }
 
 .home-page-divider {
