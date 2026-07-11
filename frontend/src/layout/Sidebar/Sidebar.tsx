@@ -82,7 +82,7 @@ const Sidebar = ({ className }: SidebarProps) => {
             )}
         >
             {/* Organisations Dropdown */}
-            {organisations && organisations?.length >= 2 && (
+            {organisations && organisations?.length >= 1 && (
                 <SidebarGroup title="Select Organisation">
                     <Dropdown
                         key={activeOrganisation?.id}
