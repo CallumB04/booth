@@ -20,7 +20,7 @@ const TicketTableRow = ({ className, ticket }: TicketTableRowProps) => {
                 <StatusDot status={ticket.status} />
             </span>
             <span className="flex flex-1 flex-col">
-                <p className="text-sm">{ticket.title}</p>
+                <p className="text-text-primary text-sm">{ticket.title}</p>
                 <p className="text-text-disabled font-mono text-xs">
                     TKT-{ticket.id} · {ticket.status}
                 </p>
