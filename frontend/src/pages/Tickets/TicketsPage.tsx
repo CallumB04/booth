@@ -6,6 +6,7 @@ import usePageTitle from "../../hooks/usePageTitle";
 import Sidebar from "../../layout/Sidebar/Sidebar";
 import Navigator from "../../components/Navigator/Navigator";
 import { useState } from "react";
+import TicketTable from "./components/TicketTable";
 
 const TicketsPage = () => {
     usePageTitle("tickets / booth");
@@ -87,6 +88,8 @@ const TicketsPage = () => {
                         defaultOptionLabel="All"
                     />
                 </div>
+                {/* Ticket Table */}
+                <TicketTable />
             </Page>
         </>
     );
