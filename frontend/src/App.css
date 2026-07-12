@@ -210,7 +210,7 @@ body {
 
     /* Ticket Statuses */
     --color-ticket-resolved: #06b6d4;
-    --color-ticket-inprogress: #3b82f6;
+    --color-ticket-in-progress: #3b82f6;
     --color-ticket-unassigned: #f59e0b;
     --color-ticket-paused: #a855f7;
     --color-ticket-cancelled: #6b7280;
