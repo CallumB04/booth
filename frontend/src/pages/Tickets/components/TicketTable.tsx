@@ -1,5 +1,4 @@
 import type { Ticket } from "../../../api/tickets";
-import Card from "../../../components/Card/Card";
 import TicketTableHeading from "./TicketTableHeading";
 import TicketTableRow from "./TicketTableRow";
 
