@@ -3,7 +3,7 @@ import CardTitle from "./CardTitle";
 import CardDescription from "./CardDescription";
 import type { ReactNode } from "react";
 
-type CardVariant = "default" | "muted" | "border";
+type CardVariant = "default" | "muted" | "border" | "dashed";
 type CardSize = "default" | "sm" | "xs";
 
 interface CardProps {
@@ -44,6 +44,7 @@ const Card = ({
                 variant === "default" && "bg-surface",
                 variant === "muted" && "bg-surface-muted",
                 variant === "border" && "bg-transparent",
+                variant === "dashed" && "bg-surface border-dashed",
                 onClick &&
                     "hover:border-surface-border-hover transform cursor-pointer hover:-translate-y-0.5",
                 className
