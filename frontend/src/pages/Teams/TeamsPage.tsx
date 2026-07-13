@@ -4,7 +4,6 @@ import Page from "../../components/Page/Page";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import usePageTitle from "../../hooks/usePageTitle";
 import Sidebar from "../../layout/Sidebar/Sidebar";
-import Card from "../../components/Card/Card";
 import EmptyStateCard from "../../components/EmptyStateCard/EmptyStateCard";
 
 const TeamsPage = () => {
