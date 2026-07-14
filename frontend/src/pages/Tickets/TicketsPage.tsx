@@ -1,4 +1,4 @@
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, TicketIcon } from "lucide-react";
 import Button from "../../components/Button/Button";
 import Page from "../../components/Page/Page";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -7,6 +7,59 @@ import Sidebar from "../../layout/Sidebar/Sidebar";
 import Navigator from "../../components/Navigator/Navigator";
 import { useState } from "react";
 import TicketTable from "./components/TicketTable";
+import type { Ticket } from "../../api/tickets";
+import EmptyStateCard from "../../components/EmptyStateCard/EmptyStateCard";
+
+const tickets: Ticket[] = [
+    {
+        id: "0",
+        status: "in-progress",
+        priority: "high",
+        title: "Onboarding emails not sending to new signups",
+        description: "Example description",
+        created_at: "",
+    },
+    {
+        id: "1",
+        status: "cancelled",
+        priority: "low",
+        title: "Pricing page layout broken on mobile",
+        description: "Example description",
+        created_at: "",
+    },
+    {
+        id: "2",
+        status: "resolved",
+        priority: "low",
+        title: "Export invoices as PDF",
+        description: "Example description",
+        created_at: "",
+    },
+    {
+        id: "3",
+        status: "in-progress",
+        priority: "medium",
+        title: "Add SSO login for enterprise trial",
+        description: "Example description",
+        created_at: "",
+    },
+    {
+        id: "4",
+        status: "unassigned",
+        priority: "high",
+        title: "Dashboard widgets flicker on refresh",
+        description: "Example description",
+        created_at: "",
+    },
+    {
+        id: "5",
+        status: "paused",
+        priority: "medium",
+        title: "CSV import fails above 50k rows",
+        description: "Example description",
+        created_at: "",
+    },
+];
 
 const TicketsPage = () => {
     usePageTitle("tickets / booth");
@@ -88,8 +141,21 @@ const TicketsPage = () => {
                         defaultOptionLabel="All"
                     />
                 </div>
+                {/* No tickets card */}
+                {tickets.length === 0 && (
+                    <EmptyStateCard
+                        icon={<TicketIcon size={26} />}
+                        title="No tickets found"
+                        description="There are currently no tickets in your organisation. Create your first ticket now and start building."
+                        button={{
+                            icon: <PlusIcon size={20} />,
+                            label: "Create your first Ticket",
+                            onClick: () => {},
+                        }}
+                    />
+                )}
                 {/* Ticket Table */}
-                <TicketTable />
+                {tickets.length >= 1 && <TicketTable tickets={tickets} />}
             </Page>
         </>
     );
