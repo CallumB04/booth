@@ -27,6 +27,12 @@ func RegisterHandlers(db *pgxpool.Pool) *http.ServeMux {
 	// Organisation Members
 	v1.Handle("GET /organisations/{orgID}/members", auth.AuthMiddleware(handleFetchOrganisationMembers(db)))
 
+	// Teams
+	v1.Handle("GET /organisations/{orgID}/teams", auth.AuthMiddleware(handleFetchTeams(db)))
+
+	// Team Members
+	v1.Handle("GET /organisations/{orgID}/teams/{teamID}/members", auth.AuthMiddleware(handleFetchTeamMembers(db)))
+
 	// Notifications
 	v1.Handle("GET /notifications", auth.AuthMiddleware(handleFetchNotifications(db)))
 	v1.Handle("PATCH /notifications/{notificationID}", auth.AuthMiddleware(handleMarkNotificationRead(db)))
