@@ -39,7 +39,7 @@ const Card = ({
     return (
         <div
             className={twMerge(
-                "border-surface-border flex w-max flex-col gap-4 rounded-md border transition-all",
+                "border-surface-border flex w-max flex-col gap-4 rounded-lg border transition-all",
                 getPaddingFromSize(size),
                 variant === "default" && "bg-surface",
                 variant === "muted" && "bg-surface-muted",
