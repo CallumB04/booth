@@ -19,9 +19,9 @@ interface CardProps {
 const getPaddingFromSize = (size: CardSize) => {
     switch (size) {
         case "default":
-            return "p-4";
+            return "p-5";
         case "sm":
-            return "p-3";
+            return "p-3.5";
         case "xs":
             return "p-2";
     }
