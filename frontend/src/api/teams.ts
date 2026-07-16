@@ -1,4 +1,5 @@
 import { api } from ".";
+import type { CustomAppColor } from "../constants/colors";
 import type { UserProfile } from "./profiles";
 
 // Models
@@ -8,7 +9,7 @@ export type Team = {
     organisation_id: string;
     name: string;
     description: string;
-    color: string;
+    color: CustomAppColor;
     created_at: string; // ISO string
 };
 
