@@ -48,6 +48,20 @@
     --danger-disabled-color: #e5bcbc;
     --danger-disabled-text-color: #a3a3a3;
     --success-color: #16a34a;
+
+    /* Custom app colors */
+    --app-blue-color: #3b82f6;
+    --app-green-color: #16a34a;
+    --app-purple-color: #a855f7;
+    --app-cyan-color: #06b6d4;
+    --app-orange-color: #e2761a;
+    --app-slate-color: #64748b;
+    --app-red-color: #ef4444;
+    --app-pink-color: #ec4899;
+    --app-amber-color: #f59e0b;
+    --app-teal-color: #14b8a6;
+    --app-violet-color: #8b5cf6;
+    --app-sky-color: #0ea5e9;
 }
 
 .dark {
@@ -85,6 +99,20 @@
     --btn-secondary-disabled-border-color: #333333;
 
     --danger-disabled-color: #7f1d1d;
+
+    /* Custom app colors */
+    --app-blue-color: #60a5fa;
+    --app-green-color: #4ade80;
+    --app-purple-color: #c084fc;
+    --app-cyan-color: #22d3ee;
+    --app-orange-color: #fb923c;
+    --app-slate-color: #94a3b8;
+    --app-red-color: #f87171;
+    --app-pink-color: #f472b6;
+    --app-amber-color: #fbbf24;
+    --app-teal-color: #2dd4bf;
+    --app-violet-color: #a78bfa;
+    --app-sky-color: #38bdf8;
 }
 
 body {
@@ -207,6 +235,20 @@ body {
     /* Status */
     --color-success: var(--success-color);
     --color-danger: var(--danger-color);
+
+    /* Custom app colors */
+    --color-app-blue: var(--app-blue-color);
+    --color-app-green: var(--app-green-color);
+    --color-app-purple: var(--app-purple-color);
+    --color-app-cyan: var(--app-cyan-color);
+    --color-app-orange: var(--app-orange-color);
+    --color-app-slate: var(--app-slate-color);
+    --color-app-red: var(--app-red-color);
+    --color-app-pink: var(--app-pink-color);
+    --color-app-amber: var(--app-amber-color);
+    --color-app-teal: var(--app-teal-color);
+    --color-app-violet: var(--app-violet-color);
+    --color-app-sky: var(--app-sky-color);
 
     /* Ticket Statuses */
     --color-ticket-resolved: #06b6d4;
