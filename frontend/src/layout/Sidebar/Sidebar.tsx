@@ -90,7 +90,7 @@ const Sidebar = ({ className }: SidebarProps) => {
                             return {
                                 value: o.id,
                                 label: o.name,
-                                description: "free · 4 users",
+                                description: `free · ${o.member_count} ${o.member_count === 1 ? "user" : "users"}`,
                                 icon: (
                                     <OrganisationDropdownIcon name={o.name} />
                                 ),
