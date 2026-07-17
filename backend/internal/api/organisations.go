@@ -31,7 +31,12 @@ func handleFetchOrganisations(db *pgxpool.Pool) http.HandlerFunc {
 		// Query database for organisations this user is a member within.
 		// $1 - Authenticated User's ID
 		rows, err := db.Query(r.Context(), `
-			select o.id, o.name, o.logo_url, o.created_by, o.created_at
+			select o.id, o.name, o.logo_url, o.created_by, o.created_at,
+				(
+					select count(*)
+					from public.organisation_members m
+					where m.organisation_id = o.id
+				) as member_count
 			from public.organisations o
 			join public.organisation_members om
     			on om.organisation_id = o.id
@@ -48,10 +53,10 @@ func handleFetchOrganisations(db *pgxpool.Pool) http.HandlerFunc {
 		defer rows.Close()
 
 		// Append results from database query into array of organisations.
-		var orgArr []models.Organisation
+		var orgArr []models.OrganisationDTO
 		for rows.Next() {
-			var org models.Organisation
-			if err := rows.Scan(&org.ID, &org.Name, &org.LogoURL, &org.CreatedBy, &org.CreatedAt); err != nil {
+			var org models.OrganisationDTO
+			if err := rows.Scan(&org.ID, &org.Name, &org.LogoURL, &org.CreatedBy, &org.CreatedAt, &org.MemberCount); err != nil {
 				log.Printf("FETCH ORGS error: %v", err)
 				util.ErrorResponse(w, http.StatusInternalServerError, "db error")
 				return

@@ -8,6 +8,7 @@ export type Organisation = {
     name: string;
     logo_url: string;
     created_by: string; // uuid (owner)
+    member_count: number;
     created_at: string; // ISO string
 };
 

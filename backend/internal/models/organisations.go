@@ -30,6 +30,15 @@ type OrganisationMember struct {
 
 // Data Transfer Objects (for sending data to frontend)
 
+type OrganisationDTO struct {
+	ID          string    `json:"id"`
+	Name        string    `json:"name"`
+	LogoURL     string    `json:"logo_url"`
+	CreatedBy   string    `json:"created_by"` // organisation owner
+	MemberCount int16     `json:"member_count"`
+	CreatedAt   time.Time `json:"created_at"`
+}
+
 type OrganisationMemberDTO struct {
 	User     UserProfile `json:"user"`
 	Role     string      `json:"role"`
