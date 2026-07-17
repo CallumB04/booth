@@ -6,10 +6,10 @@ import type { UserProfile } from "./profiles";
 
 export type Team = {
     id: string;
-    organisation_id: string;
     name: string;
     description: string;
     color: CustomAppColor;
+    member_count: number;
     created_at: string; // ISO string
 };
 

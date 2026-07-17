@@ -6,7 +6,7 @@ import "time"
 
 type Team struct {
 	ID             string    `json:"id"`
-	OrganisationID string    `Ajson:"organisation_id"`
+	OrganisationID string    `json:"organisation_id"`
 	Name           string    `json:"name"`
 	Description    string    `json:"description"`
 	Color          string    `json:"color"`
@@ -20,6 +20,15 @@ type TeamMember struct {
 }
 
 // Data Transfer Objects (for sending data to frontend)
+
+type TeamDTO struct {
+	ID          string    `json:"id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Color       string    `json:"color"`
+	MemberCount int16     `json:"member_count"`
+	CreatedAt   time.Time `json:"created_at"`
+}
 
 type TeamMemberDTO struct {
 	User     UserProfile `json:"user"`

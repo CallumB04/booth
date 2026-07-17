@@ -31,8 +31,10 @@ func handleFetchTeams(db *pgxpool.Pool) http.HandlerFunc {
 		// $1 - Organisation ID
 		// $2 - Authenticated User's ID
 		rows, err := db.Query(r.Context(), `
-			select t.id, t.organisation_id, t.name, t.description, t.color, t.created_at
+			select t.id, t.name, t.description, t.color, t.created_at,
+				count(tm.user_id) as member_count
 			from public.teams t
+			left join public.team_members tm on tm.team_id = t.id
 			where t.organisation_id = $1
     			and exists (
         			select 1
@@ -40,6 +42,7 @@ func handleFetchTeams(db *pgxpool.Pool) http.HandlerFunc {
 					where om.organisation_id = $1
 						and om.user_id = $2
     			)
+			group by t.id, t.name, t.description, t.color, t.created_at
 			order by t.created_at desc;
 		`, orgID, userID)
 		if err != nil {
@@ -52,10 +55,10 @@ func handleFetchTeams(db *pgxpool.Pool) http.HandlerFunc {
 		defer rows.Close()
 
 		// Append results from database query into array of teams.
-		var teamArr []models.Team
+		var teamArr []models.TeamDTO
 		for rows.Next() {
-			var team models.Team
-			if err := rows.Scan(&team.ID, &team.OrganisationID, &team.Name, &team.Description, &team.Color, &team.CreatedAt); err != nil {
+			var team models.TeamDTO
+			if err := rows.Scan(&team.ID, &team.Name, &team.Description, &team.Color, &team.CreatedAt, &team.MemberCount); err != nil {
 				log.Printf("FETCH TEAMS error: %v", err)
 				util.ErrorResponse(w, http.StatusInternalServerError, "error fetching teams")
 				return
