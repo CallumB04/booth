@@ -49,6 +49,18 @@
     --danger-disabled-text-color: #a3a3a3;
     --success-color: #16a34a;
 
+    /* Ticket Statuses */
+    --ticket-resolved-color: #06b6d4;
+    --ticket-in-progress-color: #3b82f6;
+    --ticket-unassigned-color: #f59e0b;
+    --ticket-paused-color: #a855f7;
+    --ticket-cancelled-color: #6b7280;
+
+    /* Ticket Priorities */
+    --ticket-priority-low-color: #94a3b8;
+    --ticket-priority-medium-color: #fb923c;
+    --ticket-priority-high-color: #ef4444;
+
     /* Custom app colors */
     --app-blue-color: #3b82f6;
     --app-green-color: #16a34a;
@@ -251,14 +263,16 @@ body {
     --color-app-sky: var(--app-sky-color);
 
     /* Ticket Statuses */
-    --color-ticket-resolved: #06b6d4;
-    --color-ticket-in-progress: #3b82f6;
-    --color-ticket-unassigned: #f59e0b;
-    --color-ticket-paused: #a855f7;
-    --color-ticket-cancelled: #6b7280;
-    --color-ticket-priority-low: #94a3b8;
-    --color-ticket-priority-medium: #fb923c;
-    --color-ticket-priority-high: #ef4444;
+    --color-ticket-resolved: var(--ticket-resolved-color);
+    --color-ticket-in-progress: var(--ticket-in-progress-color);
+    --color-ticket-unassigned: var(--ticket-unassigned-color);
+    --color-ticket-paused: var(--ticket-paused-color);
+    --color-ticket-cancelled: var(--ticket-cancelled-color);
+
+    /* Ticket Priorities */
+    --color-ticket-priority-low: var(--ticket-priority-low-color);
+    --color-ticket-priority-medium: var(--ticket-priority-medium-color);
+    --color-ticket-priority-high: var(--ticket-priority-high-color);
 
     /* -- Fonts -- */
     --font-sans: "IBM Plex Sans", Helvetica, Arial, sans-serif;
