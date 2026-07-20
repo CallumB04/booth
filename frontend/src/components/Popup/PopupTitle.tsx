@@ -3,14 +3,16 @@ import { twMerge } from "tailwind-merge";
 
 interface PopupTitleProps {
     className?: string;
+    capitalize?: boolean;
     children: ReactNode;
 }
 
-const PopupTitle = ({ className, children }: PopupTitleProps) => {
+const PopupTitle = ({ className, capitalize, children }: PopupTitleProps) => {
     return (
         <h2
             className={twMerge(
-                "text-text-primary text-[18px] font-medium tracking-[-0.02em] lowercase",
+                "text-text-primary text-[18px] font-medium tracking-[-0.02em]",
+                !capitalize && "lowercase",
                 className
             )}
         >
