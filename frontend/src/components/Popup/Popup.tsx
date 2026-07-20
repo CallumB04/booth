@@ -4,11 +4,18 @@ import PopupTitle from "./PopupTitle";
 import PopupDescription from "./PopupDescription";
 import { XIcon } from "lucide-react";
 
+type PopupHeaderIcon = {
+    icon: ReactNode;
+    bgClassName: string;
+};
+
 interface PopupProps {
     className?: string;
     children?: ReactNode;
     title: string;
     description?: string;
+    headerIcon?: PopupHeaderIcon; // goes before title and description
+    capitalizeHeader?: boolean; // dont set title and description to lowercase
     preventClose?: boolean; // stop popup being closed by clicking outside or 'X' icon
     closePopup?: () => void;
 }
@@ -18,6 +25,8 @@ const Popup = ({
     children,
     title,
     description,
+    headerIcon,
+    capitalizeHeader,
     preventClose,
     closePopup,
 }: PopupProps) => {
@@ -37,23 +46,41 @@ const Popup = ({
                 onMouseDown={(e) => e.stopPropagation()}
             >
                 {/* Popup Header */}
-                <div className="flex flex-col gap-0.5">
-                    <span className="flex items-start justify-between gap-8 sm:gap-16">
-                        {/* Title */}
-                        <PopupTitle>{title}</PopupTitle>
-                        {/* Close Popup Icon */}
-                        {!preventClose && (
-                            <button
-                                className="text-text-disabled hover:text-text-primary mt-0.5 shrink-0 cursor-pointer transition-colors"
-                                onClick={closePopup}
+                <div className="flex w-full justify-between gap-8">
+                    <span className="flex gap-4">
+                        {/* Header Icon (optional) */}
+                        {headerIcon && (
+                            <div
+                                className={twMerge(
+                                    "bg-highlight/15 flex size-12 items-center justify-center rounded-lg",
+                                    headerIcon.bgClassName
+                                )}
                             >
-                                <XIcon size={18} />
-                            </button>
+                                {headerIcon.icon}
+                            </div>
                         )}
+                        {/* Title and Description */}
+                        <span className="flex flex-col">
+                            {/* Title */}
+                            <PopupTitle capitalize={capitalizeHeader}>
+                                {title}
+                            </PopupTitle>
+                            {/* Description (optional) */}
+                            {description && (
+                                <PopupDescription capitalize={capitalizeHeader}>
+                                    {description}
+                                </PopupDescription>
+                            )}
+                        </span>
                     </span>
-                    {/* Description (optional) */}
-                    {description && (
-                        <PopupDescription>{description}</PopupDescription>
+                    {/* Close Popup Icon */}
+                    {!preventClose && (
+                        <button
+                            className="text-text-disabled hover:text-text-primary mt-0.5 h-max shrink-0 cursor-pointer transition-colors"
+                            onClick={closePopup}
+                        >
+                            <XIcon size={18} />
+                        </button>
                     )}
                 </div>
                 {/* Popup Contents */}
