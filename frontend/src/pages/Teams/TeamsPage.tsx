@@ -5,13 +5,24 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import usePageTitle from "../../hooks/usePageTitle";
 import Sidebar from "../../layout/Sidebar/Sidebar";
 import EmptyStateCard from "../../components/EmptyStateCard/EmptyStateCard";
+import { useQuery } from "@tanstack/react-query";
+import { useOrganisation } from "../../contexts/OrganisationContext";
+import { fetchTeams } from "../../api/teams";
+import TeamsGrid from "./components/TeamsGrid";
 
 const TeamsPage = () => {
     usePageTitle("teams / booth");
 
-    // empty teams array for testing no teams display
-    // replace with react query database fetch when setup
-    const teams = [];
+    const { activeOrganisation } = useOrganisation();
+
+    // Load organisations on component mount
+    const { data: teams } = useQuery({
+        queryKey: ["teams", activeOrganisation?.id], // refetch when org changes
+        queryFn: async () => {
+            const teams = await fetchTeams(activeOrganisation?.id ?? "");
+            return teams ?? [];
+        },
+    });
 
     return (
         <>
@@ -33,22 +44,23 @@ const TeamsPage = () => {
                     </Button>
                 </div>
                 {/* No teams display */}
-                {teams.length === 0 && (
-                    <EmptyStateCard
-                        icon={<UsersIcon size={26} />}
-                        title="No teams found"
-                        description="Teams let booth route requests to the right
+                {!teams ||
+                    (teams?.length === 0 && (
+                        <EmptyStateCard
+                            icon={<UsersIcon size={26} />}
+                            title="No teams found"
+                            description="Teams let booth route requests to the right
                                 people. Create your first team now and start
                                 assigning your members."
-                        button={{
-                            icon: <PlusIcon size={20} />,
-                            label: "Create your first Team",
-                            onClick: () => {},
-                        }}
-                    />
-                )}
+                            button={{
+                                icon: <PlusIcon size={20} />,
+                                label: "Create your first Team",
+                                onClick: () => {},
+                            }}
+                        />
+                    ))}
                 {/* Grid of Teams */}
-                <div className="grid grid-cols-3 gap-4"></div>
+                {teams && teams?.length >= 1 && <TeamsGrid teams={teams} />}
             </Page>
         </>
     );
