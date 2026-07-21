@@ -31,7 +31,7 @@ const TeamsPage = () => {
 
     const filteredTeams = useMemo(() => {
         // filter by search bar (name or description)
-        return teams
+        return teams && teams.length >= 1
             ? (teams?.filter(
                   (t) =>
                       t.name
