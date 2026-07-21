@@ -123,7 +123,7 @@ const Navbar = ({ className }: NavbarProps) => {
                             Go to Dashboard
                         </LinkButton>
                     ) : (
-                        <span className="flex gap-3">
+                        <span className="flex items-center gap-4">
                             {/* Light/Dark mode Icon */}
                             <ClickableGroup onClick={toggleTheme}>
                                 {theme === "light" ? (
