@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useOrganisation } from "../../contexts/OrganisationContext";
 import { fetchTeams } from "../../api/teams";
 import TeamsGrid from "./components/TeamsGrid";
+import { BUTTON_ICON_SIZE } from "../../constants/icons";
 
 const TeamsPage = () => {
     usePageTitle("teams / booth");
@@ -39,7 +40,7 @@ const TeamsPage = () => {
                         className="w-full"
                     />
                     <Button variant="primary" className="min-w-max">
-                        <PlusIcon size={20} />
+                        <PlusIcon size={BUTTON_ICON_SIZE} />
                         New Team
                     </Button>
                 </div>
@@ -53,7 +54,7 @@ const TeamsPage = () => {
                                 people. Create your first team now and start
                                 assigning your members."
                             button={{
-                                icon: <PlusIcon size={20} />,
+                                icon: <PlusIcon size={BUTTON_ICON_SIZE} />,
                                 label: "Create your first Team",
                                 onClick: () => {},
                             }}

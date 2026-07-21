@@ -9,6 +9,7 @@ import { useState } from "react";
 import TicketTable from "./components/TicketTable";
 import type { Ticket } from "../../api/tickets";
 import EmptyStateCard from "../../components/EmptyStateCard/EmptyStateCard";
+import { BUTTON_ICON_SIZE } from "../../constants/icons";
 
 const tickets: Ticket[] = [
     {
@@ -82,7 +83,7 @@ const TicketsPage = () => {
                         className="w-full"
                     />
                     <Button variant="primary" className="min-w-max">
-                        <PlusIcon size={20} />
+                        <PlusIcon size={BUTTON_ICON_SIZE} />
                         New Ticket
                     </Button>
                 </div>
@@ -148,7 +149,7 @@ const TicketsPage = () => {
                         title="No tickets found"
                         description="There are currently no tickets in your organisation. Create your first ticket now and start building."
                         button={{
-                            icon: <PlusIcon size={20} />,
+                            icon: <PlusIcon size={BUTTON_ICON_SIZE} />,
                             label: "Create your first Ticket",
                             onClick: () => {},
                         }}
