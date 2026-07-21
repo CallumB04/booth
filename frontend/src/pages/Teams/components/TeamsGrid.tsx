@@ -1,6 +1,5 @@
 import { twMerge } from "tailwind-merge";
 import type { Team } from "../../../api/teams";
-import { useEffect } from "react";
 import TeamsGridTeam from "./TeamsGridTeam";
 
 interface TeamsGridProps {
@@ -9,13 +8,10 @@ interface TeamsGridProps {
 }
 
 const TeamsGrid = ({ className, teams }: TeamsGridProps) => {
-    useEffect(() => {
-        console.log(teams);
-    }, []);
     return (
         <div className={twMerge("grid grid-cols-3 gap-4", className)}>
             {teams?.map((t) => (
-                <TeamsGridTeam team={t} />
+                <TeamsGridTeam team={t} key={t.id} />
             ))}
         </div>
     );
