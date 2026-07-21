@@ -10,6 +10,7 @@ import { useOrganisation } from "../../contexts/OrganisationContext";
 import { fetchTeams } from "../../api/teams";
 import TeamsGrid from "./components/TeamsGrid";
 import { BUTTON_ICON_SIZE } from "../../constants/icons";
+import { useMemo, useState } from "react";
 
 const TeamsPage = () => {
     usePageTitle("teams / booth");
@@ -25,6 +26,24 @@ const TeamsPage = () => {
         },
     });
 
+    // Current value in the search bar input
+    const [searchValue, setSearchValue] = useState<string>("");
+
+    const filteredTeams = useMemo(() => {
+        // filter by search bar (name or description)
+        return teams
+            ? (teams?.filter(
+                  (t) =>
+                      t.name
+                          .toLowerCase()
+                          .includes(searchValue.toLowerCase()) ||
+                      t.description
+                          .toLowerCase()
+                          .includes(searchValue.toLowerCase())
+              ) ?? [])
+            : [];
+    }, [teams, searchValue]);
+
     return (
         <>
             <Sidebar />
@@ -38,6 +57,7 @@ const TeamsPage = () => {
                         placeholder="Search for team..."
                         containerClassName="w-full"
                         className="w-full"
+                        onChange={(val) => setSearchValue(val)}
                     />
                     <Button variant="primary" className="min-w-max">
                         <PlusIcon size={BUTTON_ICON_SIZE} />
@@ -61,7 +81,20 @@ const TeamsPage = () => {
                         />
                     ))}
                 {/* Grid of Teams */}
-                {teams && teams?.length >= 1 && <TeamsGrid teams={teams} />}
+                {teams && filteredTeams?.length >= 1 ? (
+                    <TeamsGrid teams={filteredTeams} />
+                ) : (
+                    <EmptyStateCard
+                        icon={<UsersIcon size={26} />}
+                        title="No teams found with these filters"
+                        description="Can't find the team you're looking for? Create it now and start assigning your members."
+                        button={{
+                            icon: <PlusIcon size={BUTTON_ICON_SIZE} />,
+                            label: "Create a new Team",
+                            onClick: () => {},
+                        }}
+                    />
+                )}
             </Page>
         </>
     );
