@@ -1,28 +1,35 @@
+import { twMerge } from "tailwind-merge";
 import type { Ticket } from "../../../api/tickets";
-import TicketTableHeading from "./TicketTableHeading";
+import Panel from "../../../components/Panel/Panel";
 import TicketTableRow from "./TicketTableRow";
 
 interface TicketTableProps {
+    className?: string;
     tickets: Ticket[];
 }
 
-const TicketTable = ({ tickets }: TicketTableProps) => {
+// Columns are shared by the heading row and every row underneath it. The ref
+// and team ride under the title rather than taking columns of their own.
+export const TICKET_TABLE_COLUMNS = "grid-cols-[1fr_110px_96px]";
+
+const TicketTable = ({ className, tickets }: TicketTableProps) => {
     return (
-        <div className="border-layout-border w-full gap-0 rounded-lg border">
-            {/* Table Header */}
-            <span className="border-b-layout-border flex w-full border-b py-2.5 pr-4 pl-12">
-                <TicketTableHeading text="Ticket" className="flex-1" />
-                <TicketTableHeading text="Priority" className="w-28" />
-                <TicketTableHeading text="Team" className="w-36" />
-                <TicketTableHeading text="Assignee" className="w-36" />
-            </span>
-            {/* Table Contents */}
-            <div className="flex w-full flex-col">
-                {tickets.map((t) => (
-                    <TicketTableRow key={t.id} ticket={t} />
-                ))}
+        <Panel className={className}>
+            {/* Column headings */}
+            <div
+                className={twMerge(
+                    "border-b-layout-border bg-background text-text-tertiary grid h-9.5 items-center gap-3.5 border-b px-4 font-mono text-[9.5px] tracking-[0.09em] uppercase",
+                    TICKET_TABLE_COLUMNS
+                )}
+            >
+                <span>ticket</span>
+                <span>status</span>
+                <span>priority</span>
             </div>
-        </div>
+            {tickets.map((t) => (
+                <TicketTableRow key={t.id} ticket={t} />
+            ))}
+        </Panel>
     );
 };
 

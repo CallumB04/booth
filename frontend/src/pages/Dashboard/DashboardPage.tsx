@@ -1,18 +1,25 @@
 import Page from "../../components/Page/Page";
 import usePageTitle from "../../hooks/usePageTitle";
-import Sidebar from "../../layout/Sidebar/Sidebar";
+import { useUser } from "../../contexts/UserContext";
 
 const DashboardPage = () => {
     usePageTitle("dashboard / booth");
 
+    const { userProfile } = useUser();
+
     return (
-        <>
-            <Sidebar />
-            <Page
-                title="Dashboard"
-                description="An overview of your work and your organisation"
-            ></Page>
-        </>
+        <Page
+            title={
+                <>
+                    welcome back
+                    {userProfile?.first_name && (
+                        <span className="normal-case">
+                            , {userProfile.first_name}
+                        </span>
+                    )}
+                </>
+            }
+        />
     );
 };
 

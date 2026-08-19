@@ -4,28 +4,28 @@ import type { CustomAppColor } from "../constants/colors";
 export const customAppColorToTeamIconClasses = (color: CustomAppColor) => {
     switch (color) {
         case "blue":
-            return "bg-app-blue/15 text-app-blue";
+            return "bg-app-blue/13 border-app-blue/22 text-app-blue";
         case "green":
-            return "bg-app-green/15 text-app-green";
+            return "bg-app-green/13 border-app-green/22 text-app-green";
         case "purple":
-            return "bg-app-purple/15 text-app-purple";
+            return "bg-app-purple/13 border-app-purple/22 text-app-purple";
         case "cyan":
-            return "bg-app-cyan/15 text-app-cyan";
+            return "bg-app-cyan/13 border-app-cyan/22 text-app-cyan";
         case "orange":
-            return "bg-app-orange/15 text-app-orange";
+            return "bg-app-orange/13 border-app-orange/22 text-app-orange";
         case "slate":
-            return "bg-app-slate/15 text-app-slate";
+            return "bg-app-slate/13 border-app-slate/22 text-app-slate";
         case "red":
-            return "bg-app-red/15 text-app-red";
+            return "bg-app-red/13 border-app-red/22 text-app-red";
         case "pink":
-            return "bg-app-pink/15 text-app-pink";
+            return "bg-app-pink/13 border-app-pink/22 text-app-pink";
         case "amber":
-            return "bg-app-amber/15 text-app-amber";
+            return "bg-app-amber/13 border-app-amber/22 text-app-amber";
         case "teal":
-            return "bg-app-teal/15 text-app-teal";
+            return "bg-app-teal/13 border-app-teal/22 text-app-teal";
         case "violet":
-            return "bg-app-violet/15 text-app-violet";
+            return "bg-app-violet/13 border-app-violet/22 text-app-violet";
         case "sky":
-            return "bg-app-sky/15 text-app-sky";
+            return "bg-app-sky/13 border-app-sky/22 text-app-sky";
     }
 };

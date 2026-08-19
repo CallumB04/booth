@@ -1,7 +1,9 @@
 import { twMerge } from "tailwind-merge";
 import type { Ticket } from "../../../api/tickets";
+import PanelRow from "../../../components/Panel/PanelRow";
 import PriorityTag from "../../../components/PriorityTag/PriorityTag";
-import StatusDot from "../../../components/StatusDot/StatusDot";
+import StatusTag from "../../../components/StatusTag/StatusTag";
+import { TICKET_TABLE_COLUMNS } from "./TicketTable";
 
 interface TicketTableRowProps {
     className?: string;
@@ -10,27 +12,19 @@ interface TicketTableRowProps {
 
 const TicketTableRow = ({ className, ticket }: TicketTableRowProps) => {
     return (
-        <span
-            className={twMerge(
-                "not-last-of-type:border-b-layout-border bg-surface flex items-center py-3 pr-4 not-last-of-type:border-b",
-                className
-            )}
-        >
-            <span className="flex w-12 items-center justify-center">
-                <StatusDot status={ticket.status} />
-            </span>
-            <span className="flex flex-1 flex-col">
-                <p className="text-text-primary text-sm">{ticket.title}</p>
-                <p className="text-text-disabled font-mono text-xs">
-                    TKT-{ticket.id} · {ticket.status}
+        <PanelRow className={twMerge("grid", TICKET_TABLE_COLUMNS, className)}>
+            {/* Title, with the ref and team beneath it */}
+            <span className="flex min-w-0 flex-col gap-0.5">
+                <p className="text-text-primary truncate text-[13px]">
+                    {ticket.title}
+                </p>
+                <p className="text-text-faint font-mono text-[10px] lowercase">
+                    tkt-{ticket.id} · frontend
                 </p>
             </span>
-            <span className="w-28">
-                <PriorityTag priority={ticket.priority} />
-            </span>
-            <p className="text-text-secondary w-36 text-sm">Frontend</p>
-            <p className="text-text-secondary w-36 text-sm">Callum B.</p>
-        </span>
+            <StatusTag status={ticket.status} />
+            <PriorityTag priority={ticket.priority} />
+        </PanelRow>
     );
 };
 

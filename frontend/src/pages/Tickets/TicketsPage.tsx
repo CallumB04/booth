@@ -1,15 +1,38 @@
+import { useMemo } from "react";
 import { PlusIcon, TicketIcon } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import Button from "../../components/Button/Button";
+import Dropdown from "../../components/Dropdown/Dropdown";
+import EmptyStateCard from "../../components/EmptyStateCard/EmptyStateCard";
 import Page from "../../components/Page/Page";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import usePageTitle from "../../hooks/usePageTitle";
-import Sidebar from "../../layout/Sidebar/Sidebar";
-import Navigator from "../../components/Navigator/Navigator";
-import { useState } from "react";
 import TicketTable from "./components/TicketTable";
-import type { Ticket } from "../../api/tickets";
-import EmptyStateCard from "../../components/EmptyStateCard/EmptyStateCard";
+import {
+    ALL_TICKET_PRIORITIES,
+    ALL_TICKET_STATUSES,
+    type Ticket,
+} from "../../api/tickets";
+import { fetchTeams } from "../../api/teams";
+import { useOrganisation } from "../../contexts/OrganisationContext";
 import { BUTTON_ICON_SIZE } from "../../constants/icons";
+import usePageTitle from "../../hooks/usePageTitle";
+
+// "all" heads every filter, so nothing is hidden until you choose to hide it
+const STATUS_OPTIONS = [
+    { label: "all", value: "" },
+    ...ALL_TICKET_STATUSES.map((status) => ({
+        label: status,
+        value: status,
+    })),
+];
+
+const PRIORITY_OPTIONS = [
+    { label: "any", value: "" },
+    ...ALL_TICKET_PRIORITIES.map((priority) => ({
+        label: priority,
+        value: priority,
+    })),
+];
 
 const tickets: Ticket[] = [
     {
@@ -65,100 +88,79 @@ const tickets: Ticket[] = [
 const TicketsPage = () => {
     usePageTitle("tickets / booth");
 
-    const [_statusView, setStatusView] = useState<string>("");
-    const [_priorityView, setPriorityView] = useState<string>("");
+    const { activeOrganisation } = useOrganisation();
+
+    // Load teams on component mount, so the filter offers the real ones
+    const { data: teams } = useQuery({
+        queryKey: ["teams", activeOrganisation?.id], // refetch when org changes
+        queryFn: async () => {
+            const teams = await fetchTeams(activeOrganisation?.id ?? "");
+            return teams ?? [];
+        },
+        enabled: !!activeOrganisation?.id, // no organisation, no request
+    });
+
+    const teamOptions = useMemo(
+        () => [
+            { label: "all", value: "" },
+            ...(teams ?? []).map((t) => ({ label: t.name, value: t.id })),
+        ],
+        [teams]
+    );
 
     return (
-        <>
-            <Sidebar />
-            <Page
-                title="Tickets"
-                description="Search, filter, and browse every ticket in your organisation"
-            >
-                {/* Search bar and key buttons */}
-                <div className="flex w-full justify-between gap-4">
+        <Page
+            title="tickets"
+            navigation={
+                <>
                     <SearchBar
-                        placeholder="Search for ticket..."
-                        containerClassName="w-full"
+                        containerClassName="w-full sm:w-64"
                         className="w-full"
+                        placeholder="Search tickets..."
                     />
-                    <Button variant="primary" className="min-w-max">
-                        <PlusIcon size={BUTTON_ICON_SIZE} />
-                        New Ticket
-                    </Button>
-                </div>
-                {/* Navigators */}
-                <div className="flex gap-4">
-                    {/* Ticket Status Navigator */}
-                    <Navigator
-                        options={[
-                            {
-                                label: "All",
-                                onClick: () => setStatusView(""),
-                            },
-                            {
-                                label: "In Progress",
-                                onClick: () => setStatusView("in-progress"),
-                            },
-                            {
-                                label: "Unassigned",
-                                onClick: () => setStatusView("unassigned"),
-                            },
-                            {
-                                label: "Paused",
-                                onClick: () => setStatusView("paused"),
-                            },
-                            {
-                                label: "Resolved",
-                                onClick: () => setStatusView("resolved"),
-                            },
-                            {
-                                label: "Cancelled",
-                                onClick: () => setStatusView("cancelled"),
-                            },
-                        ]}
-                        defaultOptionLabel="All"
+                    <Dropdown
+                        size="sm"
+                        inlineLabel="status"
+                        options={STATUS_OPTIONS}
+                        defaultValue=""
                     />
-                    {/* Ticket Priority Navigator */}
-                    <Navigator
-                        options={[
-                            {
-                                label: "All",
-                                onClick: () => setPriorityView(""),
-                            },
-                            {
-                                label: "Low",
-                                onClick: () => setPriorityView("low"),
-                            },
-                            {
-                                label: "Medium",
-                                onClick: () => setPriorityView("medium"),
-                            },
-                            {
-                                label: "High",
-                                onClick: () => setPriorityView("high"),
-                            },
-                        ]}
-                        defaultOptionLabel="All"
+                    <Dropdown
+                        size="sm"
+                        inlineLabel="team"
+                        options={teamOptions}
+                        defaultValue=""
                     />
-                </div>
-                {/* No tickets card */}
-                {tickets.length === 0 && (
-                    <EmptyStateCard
-                        icon={<TicketIcon size={26} />}
-                        title="No tickets found"
-                        description="There are currently no tickets in your organisation. Create your first ticket now and start building."
-                        button={{
-                            icon: <PlusIcon size={BUTTON_ICON_SIZE} />,
-                            label: "Create your first Ticket",
-                            onClick: () => {},
-                        }}
+                    <Dropdown
+                        size="sm"
+                        inlineLabel="priority"
+                        options={PRIORITY_OPTIONS}
+                        defaultValue=""
                     />
-                )}
-                {/* Ticket Table */}
-                {tickets.length >= 1 && <TicketTable tickets={tickets} />}
-            </Page>
-        </>
+                </>
+            }
+            actions={
+                <Button variant="primary">
+                    <PlusIcon size={BUTTON_ICON_SIZE} />
+                    new ticket
+                </Button>
+            }
+        >
+            {/* Tickets */}
+            {tickets.length === 0 ? (
+                <EmptyStateCard
+                    icon={<TicketIcon size={22} />}
+                    title="No tickets found"
+                    description="There are currently no tickets in your organisation. Create your first ticket now and start building."
+                    button={{
+                        icon: <PlusIcon size={BUTTON_ICON_SIZE} />,
+                        label: "Create your first ticket",
+                        onClick: () => {},
+                    }}
+                />
+            ) : (
+                <TicketTable tickets={tickets} />
+            )}
+        </Page>
     );
 };
 

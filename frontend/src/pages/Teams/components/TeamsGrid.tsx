@@ -9,7 +9,12 @@ interface TeamsGridProps {
 
 const TeamsGrid = ({ className, teams }: TeamsGridProps) => {
     return (
-        <div className={twMerge("grid grid-cols-3 gap-4", className)}>
+        <div
+            className={twMerge(
+                "grid grid-cols-1 gap-3.5 md:grid-cols-2 xl:grid-cols-3",
+                className
+            )}
+        >
             {teams?.map((t) => (
                 <TeamsGridTeam team={t} key={t.id} />
             ))}
