@@ -19,4 +19,8 @@ api.interceptors.request.use(async (config) => {
     return config;
 });
 
+export * from "./notifications";
 export * from "./organisations";
+export * from "./profiles";
+export * from "./teams";
+export * from "./tickets";

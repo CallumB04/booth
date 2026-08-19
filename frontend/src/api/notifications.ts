@@ -1,6 +1,7 @@
 // Models
 
 import { api } from ".";
+import { asArray } from "../util/api";
 
 export type NotificationType = "welcome" | "org-invite"; // TODO: add more types
 
@@ -18,7 +19,7 @@ export type Notification = {
 // Fetches all notifications belonging to the signed in user
 export const fetchNotifications = async () => {
     const res = await api.get<Notification[]>("/v1/notifications");
-    return res.data;
+    return asArray(res.data);
 };
 
 // Marks notification as read

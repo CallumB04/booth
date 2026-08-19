@@ -1,4 +1,5 @@
 import { api } from ".";
+import { asArray } from "../util/api";
 import type { CustomAppColor } from "../constants/colors";
 import type { UserProfile } from "./profiles";
 
@@ -23,7 +24,7 @@ export type TeamMember = {
 // Fetches all teams of the given organisation
 export const fetchTeams = async (org_id: string) => {
     const res = await api.get<Team[]>("/v1/organisations/" + org_id + "/teams");
-    return res.data;
+    return asArray(res.data);
 };
 
 // Fetches all members of an team
@@ -31,5 +32,5 @@ export const fetchTeamMembers = async (org_id: string, team_id: string) => {
     const res = await api.get<TeamMember[]>(
         "/v1/organisations/" + org_id + "/teams" + team_id + "/members"
     );
-    return res.data;
+    return asArray(res.data);
 };

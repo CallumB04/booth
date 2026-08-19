@@ -1,4 +1,5 @@
 import { api } from ".";
+import { asArray } from "../util/api";
 import type { UserProfile } from "./profiles";
 
 // Models
@@ -30,7 +31,7 @@ export type CreateOrganisationRequest = {
 // Fetches all organisations of the signed in user
 export const fetchOrganisations = async () => {
     const res = await api.get<Organisation[]>("/v1/organisations");
-    return res.data;
+    return asArray(res.data);
 };
 
 // Fetches all members of an organisations
@@ -38,7 +39,7 @@ export const fetchOrganisationMembers = async (org_id: string) => {
     const res = await api.get<OrganisationMember[]>(
         "/v1/organisations/" + org_id + "/members"
     );
-    return res.data;
+    return asArray(res.data);
 };
 
 // Creates a new organisation with the signed in user as the owner
