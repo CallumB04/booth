@@ -123,10 +123,7 @@ const NotificationsPopout = ({
             ) : filteredNotifications && filteredNotifications?.length >= 1 ? (
                 <div className="flex-1 overflow-y-auto">
                     {filteredNotifications.map((n) => (
-                        <NotificationPopoutItem
-                            notification={n}
-                            key={n.id}
-                        />
+                        <NotificationPopoutItem notification={n} key={n.id} />
                     ))}
                 </div>
             ) : (
@@ -159,7 +156,7 @@ const NotificationPopoutItem = ({
     return (
         <div
             className={twMerge(
-                "border-b-layout-border group flex w-full items-start gap-3 border-b px-3.5 py-3 transition-colors hover:bg-surface-muted/50",
+                "border-b-layout-border group hover:bg-surface-muted/50 flex w-full items-start gap-3 border-b px-3.5 py-3 transition-colors",
                 !notification.read && "bg-highlight/[0.03]"
             )}
         >
@@ -170,7 +167,7 @@ const NotificationPopoutItem = ({
                         <span className="bg-highlight size-1.5 shrink-0 rounded-full" />
                     )}
                     {notification.archived && (
-                        <span className="text-text-disabled font-mono text-[10px] font-medium lowercase tracking-wider">
+                        <span className="text-text-disabled font-mono text-[10px] font-medium tracking-wider lowercase">
                             archived
                         </span>
                     )}
@@ -209,7 +206,7 @@ const NotificationViewOption = ({
     return (
         <button
             className={twMerge(
-                "rounded-md px-2.5 py-1 font-mono text-[11px] font-medium tracking-wide transition-colors lowercase",
+                "rounded-md px-2.5 py-1 font-mono text-[11px] font-medium tracking-wide lowercase transition-colors",
                 active
                     ? twMerge(
                           "bg-highlight/10 text-highlight select-none",

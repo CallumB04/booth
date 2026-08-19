@@ -34,19 +34,19 @@ const UserProfilePopout = ({
         <Popout
             xPos="left"
             yPos="bottom"
-            contentClassName={twMerge("flex flex-col gap-1.5", className)}
+            contentClassName={twMerge("flex flex-col", className)}
             ref={popoutRef}
             title={"Account"}
         >
             {/* Primary Actions */}
-            <div className="flex min-w-52 flex-col gap-0.5">
+            <div className="flex min-w-52 flex-col">
                 {/* My Profile */}
                 <LinkButton
                     variant="secondary-transparent"
                     to="/profile"
                     onClick={closePopout}
                     linkClassName="w-full"
-                    buttonClassName="h-8 w-full justify-start gap-2.5 px-3 text-[13px] lowercase tracking-normal font-sans"
+                    buttonClassName="h-9 w-full justify-start gap-2.5 rounded-none px-3 text-[13px] lowercase tracking-normal font-sans"
                 >
                     <UserIcon size={15} className="shrink-0" />
                     My Profile
@@ -57,7 +57,7 @@ const UserProfilePopout = ({
                     to="/settings"
                     onClick={closePopout}
                     className="w-full"
-                    buttonClassName="h-8 w-full justify-start gap-2.5 px-3 text-[13px] lowercase tracking-normal font-sans"
+                    buttonClassName="h-9 w-full justify-start gap-2.5 rounded-none px-3 text-[13px] lowercase tracking-normal font-sans"
                 >
                     <SettingsIcon size={15} className="shrink-0" />
                     Settings
@@ -67,7 +67,7 @@ const UserProfilePopout = ({
             {/* Sign Out */}
             <Button
                 variant="danger-transparent"
-                className="h-8 w-full justify-start gap-2.5 px-3 text-[13px] lowercase tracking-normal font-sans"
+                className="h-9 w-full justify-start gap-2.5 rounded-none px-3 font-sans text-[13px] tracking-normal lowercase"
                 onClick={handleSignOut}
             >
                 <LogOutIcon size={15} className="shrink-0" />

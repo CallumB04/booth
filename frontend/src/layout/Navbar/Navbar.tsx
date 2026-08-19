@@ -1,192 +1,66 @@
 import { twMerge } from "tailwind-merge";
+import { Link } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import LinkButton from "../../components/Button/LinkButton";
-import { Link, useLocation } from "react-router-dom";
+import AppLogo from "../../components/AppLogo/AppLogo";
 import { useUser } from "../../contexts/UserContext";
 import { usePopup } from "../../contexts/PopupContext";
 import SignupLoginPopup from "../Popups/SignupLoginPopup";
-import {
-    BellIcon,
-    MoonIcon,
-    SunIcon,
-    TextAlignJustifyIcon,
-    XIcon,
-} from "lucide-react";
-import ClickableGroup from "../../components/ClickableGroup/ClickableGroup";
-import UserAvatar from "../../components/UserAvatar/UserAvatar";
-import { useRef, useState } from "react";
-import { useTheme } from "../../contexts/ThemeContext";
-import useClickOutside from "../../hooks/useClickOutside";
-import { useSidebar } from "../../contexts/SidebarContext";
-import AppLogo from "../../components/AppLogo/AppLogo";
-import NotificationsPopout from "../Popouts/NotificationsPopout";
-import UserProfilePopout from "../Popouts/UserProfilePopout";
-import { fetchNotifications } from "../../api/notifications";
-import { useQuery } from "@tanstack/react-query";
 
 interface NavbarProps {
     className?: string;
 }
 
+const links = [
+    { label: "product", href: "#product" },
+    { label: "ai", href: "#ai" },
+    { label: "integrations", href: "#integrations" },
+    { label: "pricing", href: "#pricing" },
+];
+
+// Public navbar, only mounted by the marketing layout
 const Navbar = ({ className }: NavbarProps) => {
-    const { sessionLoading, user, userProfile } = useUser();
+    const { sessionLoading, user } = useUser();
     const { pushPopup, popPopup } = usePopup();
-    const location = useLocation();
-    const { theme, toggleTheme } = useTheme();
-    const { isMobileSidebarOpen, toggleMobileSidebar } = useSidebar();
-
-    // User Profile Popout
-    const [profilePopoutOpen, setProfilePopoutOpen] = useState<boolean>(false);
-    const profilePopoutRef = useRef<HTMLDivElement>(null);
-    useClickOutside(profilePopoutRef, () => setProfilePopoutOpen(false)); // close when click outside
-
-    // Notifications Popout
-    const [notificationsPopoutOpen, setNotificationsPopoutOpen] =
-        useState<boolean>(false);
-
-    // Load notifications on component mount
-    const {
-        data: notifications,
-        isLoading: notificationsLoading,
-        error: notificationsError,
-    } = useQuery({
-        queryKey: ["notifications", user?.id], // refetch when user changes
-        queryFn: async () => {
-            const notis = await fetchNotifications();
-            return notis ?? [];
-        },
-        enabled: !!user?.id, // only fetch if logged in
-    });
 
     return (
         <nav
             className={twMerge(
-                "border-b-layout-border h-navbar-height fixed top-0 left-0 z-99 flex w-screen items-center border-b px-4 backdrop-blur-xl sm:px-8",
-                "bg-surface/80",
+                "border-b-layout-border bg-background/72 h-topbar-height fixed top-0 left-0 z-99 flex w-screen items-center border-b px-4 backdrop-blur-xl sm:px-8",
                 className
             )}
         >
             <span className="mx-auto flex w-full max-w-5xl items-center justify-between gap-8">
-                {/* Logo / Brand text - Not visible on mobile unless on landing page */}
-                <Link
-                    to="/"
-                    onClick={() => window.scrollTo({ top: 0 })}
-                    className={twMerge(
-                        "text-text-primary font-medium tracking-wide",
-                        location.pathname !== "/" && "hidden lg:block"
-                    )}
-                >
+                {/* Logo / Brand text */}
+                <Link to="/" onClick={() => window.scrollTo({ top: 0 })}>
                     <AppLogo />
                 </Link>
-                {/* Hamburger Icon - Only visible on mobile - Opens Sidebar */}
-                {location.pathname !== "/" && (
-                    <ClickableGroup
-                        className="lg:hidden"
-                        onClick={toggleMobileSidebar}
-                    >
-                        {isMobileSidebarOpen ? (
-                            <XIcon size={20} />
-                        ) : (
-                            <TextAlignJustifyIcon size={20} />
-                        )}
-                    </ClickableGroup>
-                )}
-                {/* Middle nav links - Only visible on landing page (desktop) */}
-                {location.pathname === "/" && (
-                    <nav className="hidden flex-1 justify-center gap-7 lg:flex">
-                        {[
-                            { label: "product", href: "#product" },
-                            { label: "ai", href: "#ai" },
-                            { label: "integrations", href: "#integrations" },
-                            { label: "pricing", href: "#pricing" },
-                        ].map((item) => (
-                            <a
-                                key={item.href}
-                                href={item.href}
-                                className="text-text-secondary hover:text-highlight font-mono text-xs tracking-wider uppercase transition-colors"
-                            >
-                                {item.label}
-                            </a>
-                        ))}
-                    </nav>
-                )}
+
+                {/* Middle nav links */}
+                <div className="hidden flex-1 justify-center gap-7 lg:flex">
+                    {links.map((item) => (
+                        <a
+                            key={item.href}
+                            href={item.href}
+                            className="text-text-secondary hover:text-highlight font-mono text-[11px] tracking-wider uppercase transition-colors"
+                        >
+                            {item.label}
+                        </a>
+                    ))}
+                </div>
+
                 {/* Navbar options */}
                 {sessionLoading ? (
                     <></>
                 ) : user ? (
-                    location.pathname === "/" ? (
-                        <LinkButton
-                            to="/dashboard"
-                            variant="primary"
-                            className="h-10 px-3"
-                        >
-                            Go to Dashboard
-                        </LinkButton>
-                    ) : (
-                        <span className="flex items-center gap-4">
-                            {/* Light/Dark mode Icon */}
-                            <ClickableGroup onClick={toggleTheme}>
-                                {theme === "light" ? (
-                                    <SunIcon
-                                        size={20}
-                                        className="text-yellow-400"
-                                    />
-                                ) : (
-                                    <MoonIcon
-                                        size={20}
-                                        className="text-highlight"
-                                    />
-                                )}
-                            </ClickableGroup>
-                            {/* Notifications Icon - With Popout menu */}
-                            <div className="relative">
-                                <ClickableGroup
-                                    onClick={() =>
-                                        setNotificationsPopoutOpen(true)
-                                    }
-                                >
-                                    <BellIcon size={20} />
-                                    {/* Unread icons blue circle */}
-                                    {notifications &&
-                                        notifications?.filter((n) => !n.read)
-                                            .length > 0 && (
-                                            <div className="bg-highlight absolute top-1 right-1 size-2 rounded-full" />
-                                        )}
-                                </ClickableGroup>
-                                {notificationsPopoutOpen && (
-                                    <NotificationsPopout
-                                        notifications={notifications}
-                                        notificationsLoading={
-                                            notificationsLoading
-                                        }
-                                        notificationsError={notificationsError}
-                                        closePopout={() =>
-                                            setNotificationsPopoutOpen(false)
-                                        }
-                                    />
-                                )}
-                            </div>
-                            {/* User Profile Icon - With Popout menu */}
-                            <div className="relative ml-1">
-                                <UserAvatar
-                                    profile={userProfile}
-                                    onClick={() => setProfilePopoutOpen(true)}
-                                />
-                                {profilePopoutOpen && (
-                                    <UserProfilePopout
-                                        closePopout={() =>
-                                            setProfilePopoutOpen(false)
-                                        }
-                                    />
-                                )}
-                            </div>
-                        </span>
-                    )
+                    <LinkButton to="/dashboard" variant="primary">
+                        Go to booth
+                    </LinkButton>
                 ) : (
                     <span className="flex gap-2">
                         <Button
                             variant="secondary"
-                            className="h-9 px-3 text-xs"
+                            size="sm"
                             onClick={() =>
                                 pushPopup(
                                     <SignupLoginPopup
@@ -200,7 +74,7 @@ const Navbar = ({ className }: NavbarProps) => {
                         </Button>
                         <Button
                             variant="primary"
-                            className="h-9 px-3 text-xs"
+                            size="sm"
                             onClick={() =>
                                 pushPopup(
                                     <SignupLoginPopup

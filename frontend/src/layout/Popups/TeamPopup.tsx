@@ -1,6 +1,6 @@
 import Popup from "../../components/Popup/Popup";
 import type { Team } from "../../api/teams";
-import { customAppColorToTeamIconClasses } from "../../util/teams";
+import TeamIcon from "../../components/TeamIcon/TeamIcon";
 import Button from "../../components/Button/Button";
 import Navigator from "../../components/Navigator/Navigator";
 import { PlusIcon } from "lucide-react";
@@ -17,12 +17,8 @@ const TeamPopup = ({ team, closePopup }: TeamPopupProps) => {
             title={team.name}
             description={team.description}
             headerIcon={{
-                icon: (
-                    <p className="text-xl font-medium">
-                        {team.name.slice(0, 2)}
-                    </p>
-                ),
-                bgClassName: customAppColorToTeamIconClasses(team.color),
+                icon: <TeamIcon team={team} size="lg" />,
+                bgClassName: "border-0 bg-transparent",
             }}
             capitalizeHeader
             closePopup={closePopup}

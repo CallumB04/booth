@@ -4,7 +4,7 @@ interface OrganisationDropdownIconProps {
 
 const OrganisationDropdownIcon = ({ name }: OrganisationDropdownIconProps) => {
     return (
-        <span className="bg-highlight/20 text-highlight flex size-7 shrink-0 items-center justify-center rounded-md text-[13px] font-semibold uppercase select-none">
+        <span className="bg-highlight/14 text-highlight-soft flex size-6.5 shrink-0 items-center justify-center rounded-md font-mono text-[11px] uppercase select-none">
             {name.trim()[0] ?? "?"}
         </span>
     );

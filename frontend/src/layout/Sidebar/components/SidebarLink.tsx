@@ -7,39 +7,48 @@ interface SidebarLinkProps {
     text: string;
     icon: ReactNode;
     to: string;
+    trailing?: ReactNode; // count or badge pinned to the right
     open?: boolean; // is this the current open page?
 }
 
-const SidebarLink = ({ className, text, icon, to, open }: SidebarLinkProps) => {
+const SidebarLink = ({
+    className,
+    text,
+    icon,
+    to,
+    trailing,
+    open,
+}: SidebarLinkProps) => {
     return (
         <Link
             to={to}
             className={twMerge(
-                "group flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 transition-colors",
-                open ? "bg-highlight/10" : "hover:bg-surface-muted",
+                "group flex h-7.75 w-full items-center gap-2.5 rounded-md px-2.5 transition-colors",
+                open ? "bg-highlight/10" : "hover:bg-surface-hover",
                 className
             )}
         >
             <span
                 className={twMerge(
-                    "transition-colors",
+                    "shrink-0 transition-colors",
                     open
                         ? "text-highlight"
-                        : "text-text-secondary group-hover:text-text-primary"
+                        : "text-text-tertiary group-hover:text-text-primary"
                 )}
             >
                 {icon}
             </span>
             <p
                 className={twMerge(
-                    "text-sm lowercase",
+                    "truncate text-[12.5px] lowercase transition-colors",
                     open
                         ? "text-highlight"
-                        : "text-text-primary/80 group-hover:text-text-primary transition-colors"
+                        : "text-text-secondary group-hover:text-text-primary"
                 )}
             >
                 {text}
             </p>
+            {trailing && <span className="ml-auto shrink-0">{trailing}</span>}
         </Link>
     );
 };

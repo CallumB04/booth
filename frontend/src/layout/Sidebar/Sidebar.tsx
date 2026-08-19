@@ -1,26 +1,14 @@
 import { twMerge } from "tailwind-merge";
-import SidebarLink from "./components/SidebarLink";
-import { useLocation } from "react-router-dom";
-import {
-    BotIcon,
-    BrainIcon,
-    ChartLineIcon,
-    GaugeCircleIcon,
-    InboxIcon,
-    ListTodoIcon,
-    SettingsIcon,
-    TicketIcon,
-    UsersIcon,
-} from "lucide-react";
-import { useSidebar } from "../../contexts/SidebarContext";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { PlusIcon } from "lucide-react";
 import SidebarGroup from "./components/SidebarGroup";
-import { fetchOrganisations } from "../../api";
-import { useQuery } from "@tanstack/react-query";
-import { useUser } from "../../contexts/UserContext";
-import { useOrganisation } from "../../contexts/OrganisationContext";
-import Dropdown from "../../components/Dropdown/Dropdown";
-import OrganisationDropdownIcon from "./components/OrganisationDropdownIcon";
+import SidebarLink from "./components/SidebarLink";
+import SidebarOrganisation from "./components/SidebarOrganisation";
+import Button from "../../components/Button/Button";
+import CountBadge from "../../components/CountBadge/CountBadge";
+import { useSidebar } from "../../contexts/SidebarContext";
+import { NAV_GROUPS } from "../../constants/navigation";
 
 interface SidebarProps {
     className?: string;
@@ -28,146 +16,69 @@ interface SidebarProps {
 
 const Sidebar = ({ className }: SidebarProps) => {
     const location = useLocation();
-    const {
-        isMobileSidebarOpen,
-        closeMobileSidebar,
-        registerSidebar,
-        unregisterSidebar,
-    } = useSidebar();
-
-    // Register this sidebar so layout components (Footer, Page) can offset
-    // around it without needing a hardcoded list of sidebar routes.
-    useEffect(() => {
-        registerSidebar();
-        return () => unregisterSidebar();
-    }, [registerSidebar, unregisterSidebar]);
+    const navigate = useNavigate();
+    const { isMobileSidebarOpen, closeMobileSidebar } = useSidebar();
 
     // close mobile sidebar if location changes
     useEffect(() => {
         closeMobileSidebar();
     }, [location.pathname]);
 
-    const { user } = useUser();
-    const { activeOrganisation, setActiveOrganisation } = useOrganisation();
-
-    // Load organisations on component mount
-    const { data: organisations } = useQuery({
-        queryKey: ["organisations", user?.id], // refetch when user changes
-        queryFn: async () => {
-            const orgs = await fetchOrganisations();
-            return orgs ?? [];
-        },
-    });
-
-    // Update activeOrganisation when organisations changes
-    useEffect(() => {
-        if (
-            !activeOrganisation ||
-            !organisations?.some((org) => org.id === activeOrganisation.id)
-        ) {
-            if (organisations && organisations.length > 0) {
-                setActiveOrganisation(organisations[0]);
-            } else {
-                setActiveOrganisation(undefined);
-            }
-        }
-    }, [organisations]);
-
     return (
         <aside
             className={twMerge(
-                "bg-surface border-r-layout-border mt-navbar-height w-sidebar-width fixed top-0 left-0 z-90 h-[calc(100vh-var(--navbar-height))] flex-col gap-6 border-r px-3 py-4 lg:flex",
+                "bg-rail border-r-layout-border w-sidebar-width fixed top-0 left-0 z-90 h-screen shrink-0 flex-col border-r lg:static lg:flex",
                 isMobileSidebarOpen ? "flex" : "hidden",
                 className
             )}
         >
-            {/* Organisations Dropdown */}
-            {organisations && organisations?.length >= 1 && (
-                <SidebarGroup title="Select Organisation">
-                    <Dropdown
-                        key={activeOrganisation?.id}
-                        options={organisations?.map((o) => {
-                            return {
-                                value: o.id,
-                                label: o.name,
-                                description: `free · ${o.member_count} ${o.member_count === 1 ? "user" : "users"}`,
-                                icon: (
-                                    <OrganisationDropdownIcon name={o.name} />
-                                ),
-                            };
-                        })}
-                        className="bg-background! w-full"
-                        defaultValue={activeOrganisation?.id}
-                        onChange={(val) =>
-                            setActiveOrganisation(
-                                organisations.find((o) => o.id === val)
-                            )
-                        }
-                    />
-                </SidebarGroup>
-            )}
-            <SidebarGroup title="Workspace">
-                <SidebarLink
-                    text="Dashboard"
-                    icon={<GaugeCircleIcon size={18} />}
-                    to="/dashboard"
-                    open={location.pathname.includes("dashboard")}
-                />
-                <SidebarLink
-                    text="Inbox"
-                    icon={<InboxIcon size={18} />}
-                    to="/inbox"
-                    open={location.pathname.includes("inbox")}
-                />
-                <SidebarLink
-                    text="My Tasks"
-                    icon={<ListTodoIcon size={18} />}
-                    to="/my-tasks"
-                    open={location.pathname.includes("my-tasks")}
-                />
-                <SidebarLink
-                    text="All Tickets"
-                    icon={<TicketIcon size={18} />}
-                    to="/tickets"
-                    open={location.pathname.includes("tickets")}
-                />
-            </SidebarGroup>
+            {/* Organisation switcher */}
+            <SidebarOrganisation />
 
-            <SidebarGroup title="Create">
-                <SidebarLink
-                    text="New Request"
-                    icon={<BotIcon size={18} />}
-                    to="/request"
-                    open={location.pathname.includes("request")}
-                />
-                <SidebarLink
-                    text="Knowledge Base"
-                    icon={<BrainIcon size={18} />}
-                    to="/knowledge-base"
-                    open={location.pathname.includes("knowledge-base")}
-                />
-            </SidebarGroup>
+            {/* Primary action, the whole product starts here */}
+            <div className="px-3 pt-3.5">
+                <Button
+                    variant="primary"
+                    className="w-full"
+                    onClick={() => navigate("/request")}
+                >
+                    {/* Nudged left so the label reads as centred, rather than
+                        the icon and label reading as a centred pair */}
+                    <PlusIcon size={15} className="-ml-1.5" />
+                    new request
+                </Button>
+            </div>
 
-            <SidebarGroup title="Organisation">
-                <SidebarLink
-                    text="Teams"
-                    icon={<UsersIcon size={18} />}
-                    to="/teams"
-                    open={location.pathname.includes("teams")}
-                />
-                <SidebarLink
-                    text="Activity"
-                    icon={<ChartLineIcon size={18} />}
-                    to="/activity"
-                    open={location.pathname.includes("activity")}
-                />
-                <SidebarLink
-                    text="Settings"
-                    icon={<SettingsIcon size={18} />}
-                    to="/settings"
-                    open={location.pathname.includes("settings")}
-                />
-            </SidebarGroup>
+            {/* Navigation */}
+            <nav className="flex flex-1 flex-col gap-4.5 overflow-y-auto p-3 pt-4">
+                {NAV_GROUPS.map((group) => (
+                    <SidebarGroup key={group.label} title={group.label}>
+                        {group.links.map((link) => (
+                            <SidebarLink
+                                key={link.to}
+                                text={link.label}
+                                icon={link.icon}
+                                to={link.to}
+                                open={location.pathname.startsWith(link.to)}
+                                trailing={
+                                    link.count !== undefined && (
+                                        <CountBadge
+                                            variant={
+                                                link.countVariant ===
+                                                "attention"
+                                                    ? "highlight"
+                                                    : "neutral"
+                                            }
+                                        >
+                                            {link.count}
+                                        </CountBadge>
+                                    )
+                                }
+                            />
+                        ))}
+                    </SidebarGroup>
+                ))}
+            </nav>
         </aside>
     );
 };
