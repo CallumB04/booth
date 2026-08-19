@@ -7,128 +7,189 @@
     box-sizing: border-box;
     scroll-behavior: smooth;
 
-    --navbar-height: 64px;
-    --sidebar-width: 240px;
+    --topbar-height: 56px;
+    --sidebar-width: 212px;
 
     /* Accent */
-    --highlight-color: #22c55e;
-    --highlight-color-hover: #16a34a;
-    --highlight-color-soft: #bbf7d0;
+    --highlight-color: #16a34a;
+    --highlight-color-hover: #15803d;
+    --highlight-color-bright: #15803d;
+    --highlight-color-soft: #146c34;
+    --highlight-color-dim: #4d8f68;
+    --highlight-on-color: #ffffff;
 
     /* Text */
-    --primary-text-color: #0a0a0a;
-    --secondary-text-color: #525252;
-    --tertiary-text-color: #737373;
-    --disabled-text-color: #a3a3a3;
+    --display-text-color: #0b0d10;
+    --primary-text-color: #15181d;
+    --secondary-text-color: #4a5261;
+    --tertiary-text-color: #6b7383;
+    --disabled-text-color: #9aa1ae;
+    --faint-text-color: #b4bac4;
 
     /* Backgrounds */
-    --background-color: #fafafa;
+    --background-color: #f7f8f9;
+    --rail-color: #f1f3f5;
     --surface-color: #ffffff;
-    --surface-muted-color: #f5f5f5;
+    --surface-muted-color: #f3f4f6;
+    --surface-raised-color: #ffffff;
+    --surface-hover-color: #f1f2f4;
 
     /* Borders */
-    --layout-border-color: #e5e5e5;
-    --surface-border-color: #e5e5e5;
-    --surface-border-hover-color: #a3a3a3;
-    --input-border-color: #aaa;
-    --input-border-hover-color: #262626;
-    --popup-border-color: #262626;
+    --layout-border-color: rgba(11, 13, 16, 0.09);
+    --surface-border-color: rgba(11, 13, 16, 0.1);
+    --surface-border-hover-color: rgba(11, 13, 16, 0.22);
+    --input-border-color: rgba(11, 13, 16, 0.14);
+    --input-border-hover-color: rgba(11, 13, 16, 0.3);
+    --popup-border-color: rgba(11, 13, 16, 0.12);
 
     /* Buttons */
-    --btn-primary-disabled-color: #e5e5e5;
-    --btn-primary-disabled-text-color: #a3a3a3;
+    /* A shade darker than the brand green, so the label clears AA on the fill */
+    --btn-primary-color: #15803d;
+    --btn-primary-hover-color: #146c34;
+    --btn-primary-text-color: #ffffff;
+    --btn-primary-disabled-color: #dfe2e6;
+    --btn-primary-disabled-text-color: #9aa1ae;
 
-    --btn-secondary-border-color: #d4d4d8;
-    --btn-secondary-hover-bg-color: #f5f5f5;
-    --btn-secondary-disabled-bg-color: #ffffff;
-    --btn-secondary-disabled-border-color: #e5e5e5;
+    --btn-secondary-bg-color: #ffffff;
+    --btn-secondary-hover-bg-color: #f1f2f4;
+    --btn-secondary-disabled-bg-color: #f7f8f9;
+    --btn-secondary-disabled-border-color: rgba(11, 13, 16, 0.07);
 
     /* States */
     --danger-color: #dc2626;
-    --danger-disabled-color: #e5bcbc;
-    --danger-disabled-text-color: #a3a3a3;
+    --danger-soft-color: #b91c1c;
+    --danger-disabled-color: #f0d4d4;
+    --danger-disabled-text-color: #9aa1ae;
     --success-color: #16a34a;
+    --warning-color: #b7791f;
 
     /* Ticket Statuses */
-    --ticket-resolved-color: #06b6d4;
-    --ticket-in-progress-color: #3b82f6;
-    --ticket-unassigned-color: #f59e0b;
-    --ticket-paused-color: #a855f7;
+    --ticket-resolved-color: #0e9099;
+    --ticket-in-progress-color: #2563eb;
+    --ticket-todo-color: #4f46e5;
+    --ticket-unassigned-color: #b7791f;
+    --ticket-paused-color: #7c3aed;
     --ticket-cancelled-color: #6b7280;
 
     /* Ticket Priorities */
-    --ticket-priority-low-color: #94a3b8;
-    --ticket-priority-medium-color: #fb923c;
-    --ticket-priority-high-color: #ef4444;
+    --ticket-priority-low-color: #6b7383;
+    --ticket-priority-medium-color: #b7791f;
+    --ticket-priority-high-color: #dc2626;
 
     /* Custom app colors */
-    --app-blue-color: #3b82f6;
+    --app-blue-color: #2563eb;
     --app-green-color: #16a34a;
-    --app-purple-color: #a855f7;
-    --app-cyan-color: #06b6d4;
-    --app-orange-color: #e2761a;
+    --app-purple-color: #7c3aed;
+    --app-cyan-color: #0e9099;
+    --app-orange-color: #c2620c;
     --app-slate-color: #64748b;
-    --app-red-color: #ef4444;
-    --app-pink-color: #ec4899;
-    --app-amber-color: #f59e0b;
-    --app-teal-color: #14b8a6;
-    --app-violet-color: #8b5cf6;
-    --app-sky-color: #0ea5e9;
+    --app-red-color: #dc2626;
+    --app-pink-color: #db2777;
+    --app-amber-color: #b7791f;
+    --app-teal-color: #0d9488;
+    --app-violet-color: #7c3aed;
+    --app-sky-color: #0284c7;
 }
 
 .dark {
     /* Accent */
     --highlight-color: #22c55e;
-    --highlight-color-hover: #86efac;
-    --highlight-color-soft: #052e16;
+    --highlight-color-hover: #2dd46a;
+    --highlight-color-bright: #4ade80;
+    --highlight-color-soft: #86efac;
+    --highlight-color-dim: #3e7a54;
+    --highlight-on-color: #04140a;
 
     /* Text */
-    --primary-text-color: #f5f5f5;
-    --secondary-text-color: #a8a8a8;
-    --tertiary-text-color: #888888;
-    --disabled-text-color: #6e6e6e;
+    --display-text-color: #f7f8f9;
+    --primary-text-color: #f2f3f5;
+    --secondary-text-color: #9da3ae;
+    --tertiary-text-color: #7c8391;
+    --disabled-text-color: #4e5563;
+    --faint-text-color: #414855;
 
     /* Backgrounds */
-    --background-color: #202020;
-    --surface-color: #2a2a2a;
-    --surface-muted-color: #333333;
+    --background-color: #0a0b0d;
+    --rail-color: #0c0d10;
+    --surface-color: #0e0f13;
+    --surface-muted-color: #0b0c0f;
+    --surface-raised-color: #101216;
+    --surface-hover-color: #13151a;
 
     /* Borders */
-    --layout-border-color: #333333;
-    --surface-border-color: #444444;
-    --surface-border-hover-color: #555555;
-    --input-border-color: #444444;
-    --input-border-hover-color: #555555;
-    --popup-border-color: #444444;
+    --layout-border-color: rgba(255, 255, 255, 0.07);
+    --surface-border-color: rgba(255, 255, 255, 0.07);
+    --surface-border-hover-color: rgba(255, 255, 255, 0.18);
+    --input-border-color: rgba(255, 255, 255, 0.09);
+    --input-border-hover-color: rgba(255, 255, 255, 0.2);
+    --popup-border-color: rgba(255, 255, 255, 0.12);
 
     /* Buttons */
-    --btn-primary-disabled-color: #052e16;
-    --btn-primary-disabled-text-color: #6e6e6e;
+    --btn-primary-color: #22c55e;
+    --btn-primary-hover-color: #4ade80;
+    --btn-primary-text-color: #04140a;
+    --btn-primary-disabled-color: #14161b;
+    --btn-primary-disabled-text-color: #4e5563;
 
-    --btn-secondary-border-color: #444444;
-    --btn-secondary-hover-bg-color: #333333;
-    --btn-secondary-disabled-bg-color: #202020;
-    --btn-secondary-disabled-border-color: #333333;
+    --btn-secondary-bg-color: #101216;
+    --btn-secondary-hover-bg-color: #16181e;
+    --btn-secondary-disabled-bg-color: #0b0c0f;
+    --btn-secondary-disabled-border-color: rgba(255, 255, 255, 0.05);
 
-    --danger-disabled-color: #7f1d1d;
+    /* States */
+    --danger-color: #f87171;
+    --danger-soft-color: #fca5a5;
+    --danger-disabled-color: #2a1717;
+    --danger-disabled-text-color: #4e5563;
+    --success-color: #4ade80;
+    --warning-color: #f5b547;
+
+    /* Ticket Statuses */
+    --ticket-resolved-color: #22d3ee;
+    --ticket-in-progress-color: #60a5fa;
+    --ticket-todo-color: #818cf8;
+    --ticket-unassigned-color: #f5b547;
+    --ticket-paused-color: #a78bfa;
+    --ticket-cancelled-color: #7c8391;
+
+    /* Ticket Priorities */
+    --ticket-priority-low-color: #7c8391;
+    --ticket-priority-medium-color: #f5b547;
+    --ticket-priority-high-color: #f87171;
 
     /* Custom app colors */
     --app-blue-color: #60a5fa;
     --app-green-color: #4ade80;
-    --app-purple-color: #c084fc;
+    --app-purple-color: #a78bfa;
     --app-cyan-color: #22d3ee;
     --app-orange-color: #fb923c;
     --app-slate-color: #94a3b8;
     --app-red-color: #f87171;
     --app-pink-color: #f472b6;
-    --app-amber-color: #fbbf24;
+    --app-amber-color: #f5b547;
     --app-teal-color: #2dd4bf;
     --app-violet-color: #a78bfa;
     --app-sky-color: #38bdf8;
 }
 
 body {
-    @apply bg-background;
+    @apply bg-background text-text-primary font-sans antialiased;
+}
+
+/* Thin scrollbars, matching the app chrome rather than the OS */
+::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--surface-border-hover-color);
+    border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--input-border-hover-color);
 }
 
 /* Scroll-in animation for AnimateInView wrapper */
@@ -151,8 +212,23 @@ body {
     }
 }
 
+/* Slow pulse on the agent status dots */
+@keyframes agent-glow {
+    0%,
+    100% {
+        opacity: 0.55;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.animate-agent-glow {
+    animation: agent-glow 2.4s ease-in-out infinite;
+}
+
 .input-default {
-    @apply placeholder:text-text-placeholder text-text-primary border-input-border hover:border-input-border-hover bg-surface focus:outline-highlight disabled:text-text-disabled disabled:hover:border-input-border h-11 rounded-md border px-3 font-mono text-[13px] tracking-wide transition-all focus:outline-1 disabled:cursor-not-allowed;
+    @apply placeholder:text-text-disabled text-text-primary border-input-border hover:border-input-border-hover bg-surface-raised focus:border-highlight/60 focus:outline-highlight/40 disabled:border-btn-secondary-disabled-border disabled:bg-btn-secondary-disabled-bg disabled:text-text-disabled disabled:hover:border-btn-secondary-disabled-border h-9.5 rounded-[7px] border px-3 font-mono text-[11.5px] transition-colors focus:outline-1 disabled:cursor-not-allowed;
 }
 
 .home-page-divider {
@@ -160,8 +236,8 @@ body {
         -45deg,
         var(--highlight-color),
         var(--highlight-color) 8px,
-        #16a34a 8px,
-        #16a34a 10px
+        var(--highlight-color-hover) 8px,
+        var(--highlight-color-hover) 10px
     );
 }
 
@@ -191,22 +267,29 @@ body {
     /* -- Colors -- */
 
     /* Highlight / Brand */
-
     --color-highlight: var(--highlight-color);
     --color-highlight-hover: var(--highlight-color-hover);
+    --color-highlight-bright: var(--highlight-color-bright);
     --color-highlight-soft: var(--highlight-color-soft);
+    --color-highlight-dim: var(--highlight-color-dim);
+    --color-highlight-on: var(--highlight-on-color);
 
     /* Text */
+    --color-text-display: var(--display-text-color);
     --color-text-primary: var(--primary-text-color);
     --color-text-secondary: var(--secondary-text-color);
     --color-text-tertiary: var(--tertiary-text-color);
     --color-text-disabled: var(--disabled-text-color);
+    --color-text-faint: var(--faint-text-color);
     --color-text-placeholder: var(--disabled-text-color);
 
     /* Background / Surface */
     --color-background: var(--background-color);
+    --color-rail: var(--rail-color);
     --color-surface: var(--surface-color);
     --color-surface-muted: var(--surface-muted-color);
+    --color-surface-raised: var(--surface-raised-color);
+    --color-surface-hover: var(--surface-hover-color);
 
     /* Borders */
     --color-layout-border: var(--layout-border-color);
@@ -217,36 +300,31 @@ body {
     --color-popup-border: var(--popup-border-color);
 
     /* Primary Button */
-    --color-btn-primary: var(--highlight-color);
-    --color-btn-primary-hover: var(--highlight-color-hover);
+    --color-btn-primary: var(--btn-primary-color);
+    --color-btn-primary-hover: var(--btn-primary-hover-color);
+    --color-btn-primary-text: var(--btn-primary-text-color);
     --color-btn-primary-disabled: var(--btn-primary-disabled-color);
-    --color-btn-primary-text: #fff;
     --color-btn-primary-disabled-text: var(--btn-primary-disabled-text-color);
 
     /* Secondary Button */
-    --color-btn-secondary-bg: var(--surface-color);
-    --color-btn-secondary-text: var(--primary-text-color);
-    --color-btn-secondary-border: var(--btn-secondary-border-color);
-
+    --color-btn-secondary-bg: var(--btn-secondary-bg-color);
     --color-btn-secondary-hover-bg: var(--btn-secondary-hover-bg-color);
-    --color-btn-secondary-hover-border: var(--disabled-text-color);
-
     --color-btn-secondary-disabled-bg: var(--btn-secondary-disabled-bg-color);
-    --color-btn-secondary-disabled-text: var(--disabled-text-color);
     --color-btn-secondary-disabled-border: var(
         --btn-secondary-disabled-border-color
     );
 
     /* Danger Button */
     --color-btn-danger: var(--danger-color);
-    --color-btn-danger-hover: #b91c1c;
+    --color-btn-danger-hover: var(--danger-soft-color);
     --color-btn-danger-disabled: var(--danger-disabled-color);
-    --color-btn-danger-text: #fff;
     --color-btn-danger-disabled-text: var(--danger-disabled-text-color);
 
     /* Status */
     --color-success: var(--success-color);
+    --color-warning: var(--warning-color);
     --color-danger: var(--danger-color);
+    --color-danger-soft: var(--danger-soft-color);
 
     /* Custom app colors */
     --color-app-blue: var(--app-blue-color);
@@ -265,6 +343,7 @@ body {
     /* Ticket Statuses */
     --color-ticket-resolved: var(--ticket-resolved-color);
     --color-ticket-in-progress: var(--ticket-in-progress-color);
+    --color-ticket-todo: var(--ticket-todo-color);
     --color-ticket-unassigned: var(--ticket-unassigned-color);
     --color-ticket-paused: var(--ticket-paused-color);
     --color-ticket-cancelled: var(--ticket-cancelled-color);
@@ -280,14 +359,14 @@ body {
 
     /* -- Sizes -- */
 
-    /* Navbar */
-    --height-navbar-height: var(--navbar-height);
-    --margin-navbar-height: var(--navbar-height);
-    --padding-navbar-height: var(--navbar-height);
-    --top-navbar-height: var(--navbar-height);
+    /* App shell */
+    --height-topbar-height: var(--topbar-height);
+    --margin-topbar-height: var(--topbar-height);
+    --padding-topbar-height: var(--topbar-height);
+    --top-topbar-height: var(--topbar-height);
     --width-sidebar-width: var(--sidebar-width);
     --margin-sidebar-width: var(--sidebar-width);
 
     /* Label and Input */
-    --space-input-label: 6px;
+    --space-input-label: 7px;
 }
