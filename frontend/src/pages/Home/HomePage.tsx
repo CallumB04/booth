@@ -1,4 +1,4 @@
-import AnimateInView from "../../components/AnimateInView/AnimateInView";
+import AnimateInView from "./components/AnimateInView";
 import Page from "../../components/Page/Page";
 import usePageTitle from "../../hooks/usePageTitle";
 import HomePageAIGrid from "./components/HomePageAIGrid";

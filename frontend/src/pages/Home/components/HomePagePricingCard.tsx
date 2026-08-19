@@ -30,7 +30,8 @@ const HomePagePricingCard = ({
         <Card
             className={twMerge(
                 "relative h-full w-full gap-6 p-8",
-                featured && "ring-highlight shadow-highlight/20 shadow-xl ring-1",
+                featured &&
+                    "ring-highlight shadow-highlight/20 shadow-xl ring-1",
                 className
             )}
         >

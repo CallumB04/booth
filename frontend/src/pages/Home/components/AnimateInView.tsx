@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
-import useInView from "../../hooks/useInView";
+import useInView from "../../../hooks/useInView";
 
 interface AnimateInViewProps {
     className?: string;

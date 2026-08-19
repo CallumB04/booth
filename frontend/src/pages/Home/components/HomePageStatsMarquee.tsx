@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import Marquee from "../../../components/Marquee/Marquee";
+import Marquee from "./Marquee";
 
 interface HomePageStatsMarqueeProps {
     className?: string;
