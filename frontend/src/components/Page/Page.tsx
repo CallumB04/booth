@@ -1,39 +1,51 @@
 import type { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import PageHeader from "./PageHeader";
-import PageDescription from "./PageDescription";
-import { useSidebar } from "../../contexts/SidebarContext";
 
 interface PageProps {
     className?: string;
     children?: ReactNode;
-    title?: string;
-    description?: string;
+    title?: ReactNode; // free-form so a title can hold a stored value at its own case
+    navigation?: ReactNode; // tabs and filters, sit under the header on the left
+    actions?: ReactNode; // the page's calls to action, on the right of the same row
 }
 
-const Page = ({ className, children, title, description }: PageProps) => {
-    // Auto-offsets to the right of the in-app sidebar when it's mounted.
-    const { isSidebarMounted } = useSidebar();
-
+// Padded page body, rendered inside the app shell's scroll area. Every page in
+// the app shares this one column so they all line up with each other. The header
+// only ever holds the title - navigation and actions go in the row beneath it.
+const Page = ({
+    className,
+    children,
+    title,
+    navigation,
+    actions,
+}: PageProps) => {
     return (
-        <main
+        <div
             className={twMerge(
-                "mt-navbar-height flex min-h-[calc(100vh-var(--navbar-height))] justify-center p-4 sm:p-8",
-                isSidebarMounted && "lg:ml-sidebar-width"
+                "mx-auto w-full max-w-270 space-y-5 p-6 pb-14 sm:px-8 sm:pt-8",
+                className
             )}
         >
-            <div className={twMerge("w-full max-w-6xl space-y-6", className)}>
-                {(title || description) && (
-                    <div className="space-y-2">
-                        {title && <PageHeader>{title}</PageHeader>}
-                        {description && (
-                            <PageDescription>{description}</PageDescription>
-                        )}
+            {/* Header */}
+            {title && <PageHeader>{title}</PageHeader>}
+
+            {/* Navigation on the left, calls to action on the right */}
+            {(navigation || actions) && (
+                <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                        {navigation}
                     </div>
-                )}
-                {children}
-            </div>
-        </main>
+                    {actions && (
+                        <div className="flex shrink-0 items-center gap-2.5">
+                            {actions}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {children}
+        </div>
     );
 };
 

@@ -28,16 +28,18 @@ const EmptyStateCard = ({
         <Card
             variant="dashed"
             className={twMerge(
-                "w-full items-center gap-5 px-8 py-12",
+                "w-full items-center gap-4 px-8 py-12",
                 className
             )}
         >
-            <div className="text-highlight bg-highlight/20 rounded-xl p-4">
+            <div className="text-highlight bg-highlight/10 border-highlight/18 rounded-lg border p-3.5">
                 {icon}
             </div>
             <div className="space-y-1.5 text-center">
-                <p className="text-text-primary text-xl font-medium">{title}</p>
-                <p className="text-text-secondary max-w-100 text-sm">
+                <p className="text-text-primary text-[16px] font-normal tracking-[-0.01em] lowercase">
+                    {title}
+                </p>
+                <p className="text-text-tertiary mx-auto max-w-96 text-[13px] leading-relaxed lowercase">
                     {description}
                 </p>
             </div>

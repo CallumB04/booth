@@ -1,10 +1,18 @@
+import { twMerge } from "tailwind-merge";
+
 interface InputLabelProps {
+    className?: string;
     text: string;
 }
 
-const InputLabel = ({ text }: InputLabelProps) => {
+const InputLabel = ({ className, text }: InputLabelProps) => {
     return (
-        <p className="text-text-secondary font-mono text-[12px] font-medium tracking-[0.04em]">
+        <p
+            className={twMerge(
+                "text-text-tertiary font-mono text-[10px] tracking-[0.11em] uppercase",
+                className
+            )}
+        >
             {text}
         </p>
     );

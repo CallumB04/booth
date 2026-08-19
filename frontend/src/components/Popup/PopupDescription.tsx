@@ -15,7 +15,7 @@ const PopupDescription = ({
     return (
         <p
             className={twMerge(
-                "text-text-secondary text-sm leading-relaxed",
+                "text-text-tertiary text-[13px] leading-relaxed",
                 !capitalize && "lowercase",
                 className
             )}

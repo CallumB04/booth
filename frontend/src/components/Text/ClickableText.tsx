@@ -15,7 +15,7 @@ const ClickableText = ({
     return (
         <div
             className={twMerge(
-                "text-highlight hover:text-highlight-hover w-max cursor-pointer font-medium hover:underline",
+                "text-highlight-bright hover:text-highlight-soft w-max cursor-pointer text-[13px] font-medium transition-colors",
                 className
             )}
             onClick={onClick}

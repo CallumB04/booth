@@ -10,7 +10,7 @@ const CardTitle = ({ className, children }: CardTitleProps) => {
     return (
         <h2
             className={twMerge(
-                "text-text-primary text-[17px] font-medium tracking-[-0.01em] lowercase",
+                "text-text-primary text-[14px] font-normal lowercase",
                 className
             )}
         >

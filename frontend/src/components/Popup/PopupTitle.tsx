@@ -11,7 +11,7 @@ const PopupTitle = ({ className, capitalize, children }: PopupTitleProps) => {
     return (
         <h2
             className={twMerge(
-                "text-text-primary text-[18px] font-medium tracking-[-0.02em]",
+                "text-text-primary text-[15.5px] font-semibold tracking-[-0.01em]",
                 !capitalize && "lowercase",
                 className
             )}

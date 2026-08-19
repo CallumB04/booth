@@ -32,14 +32,14 @@ const Popup = ({
 }: PopupProps) => {
     return (
         <dialog
-            className="fixed top-0 left-0 z-99 flex h-screen w-screen items-center justify-center bg-black/60 p-4 sm:p-8"
+            className="fixed top-0 left-0 z-99 flex h-screen w-screen items-center justify-center bg-black/62 p-4 sm:p-8"
             onMouseDown={() => {
                 if (closePopup && !preventClose) closePopup();
             }}
         >
             <div
                 className={twMerge(
-                    "bg-surface flex max-w-full flex-col gap-5 rounded-2xl p-6 shadow-2xl",
+                    "bg-surface-raised border-popup-border flex max-w-full flex-col gap-5 rounded-xl border p-6 shadow-2xl",
                     className
                 )}
                 // prevent popup close if mouse is dragged and unclicks outside popup
@@ -52,7 +52,7 @@ const Popup = ({
                         {headerIcon && (
                             <div
                                 className={twMerge(
-                                    "bg-highlight/15 flex size-12 items-center justify-center rounded-lg",
+                                    "bg-highlight/12 border-highlight/20 flex size-10 items-center justify-center rounded-lg border",
                                     headerIcon.bgClassName
                                 )}
                             >
@@ -60,7 +60,7 @@ const Popup = ({
                             </div>
                         )}
                         {/* Title and Description */}
-                        <span className="flex flex-col">
+                        <span className="flex flex-col gap-1">
                             {/* Title */}
                             <PopupTitle capitalize={capitalizeHeader}>
                                 {title}

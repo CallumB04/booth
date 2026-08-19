@@ -14,6 +14,8 @@ const StatusDot = ({ className, status }: StatusDotProps) => {
                 return "bg-ticket-resolved";
             case "in-progress":
                 return "bg-ticket-in-progress";
+            case "todo":
+                return "bg-ticket-todo";
             case "unassigned":
                 return "bg-ticket-unassigned";
             case "paused":
@@ -25,7 +27,11 @@ const StatusDot = ({ className, status }: StatusDotProps) => {
 
     return (
         <div
-            className={twMerge("size-2.5 rounded-full", colorClass, className)}
+            className={twMerge(
+                "size-[5px] shrink-0 rounded-full",
+                colorClass,
+                className
+            )}
         />
     );
 };

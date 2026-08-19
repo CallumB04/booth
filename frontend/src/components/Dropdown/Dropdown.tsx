@@ -1,7 +1,8 @@
 import { useRef, useState, type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
-import { CheckIcon, ChevronRightIcon } from "lucide-react";
+import { CheckIcon, ChevronDownIcon } from "lucide-react";
 import InputLabel from "../Text/InputLabel";
+import DropdownInlineLabel from "./DropdownInlineLabel";
 import Popout from "../Popout/Popout";
 import useClickOutside from "../../hooks/useClickOutside";
 
@@ -12,12 +13,16 @@ export type DropdownOption = {
     icon?: ReactNode; // optional leading element (e.g. avatar / logo / icon)
 };
 
+type DropdownSize = "default" | "sm";
+
 interface DropdownProps {
     className?: string; // classes for the trigger button
     containerClassName?: string; // div containing label and dropdown
     menuClassName?: string; // classes for the open options menu
     options: DropdownOption[];
-    label?: string;
+    label?: string; // standard label, sits above the dropdown
+    inlineLabel?: string; // mono key inside the trigger instead, for filters
+    size?: DropdownSize;
     placeholder?: string;
     defaultValue?: string; // initially selected value, placeholder shown if empty
     disabled?: boolean;
@@ -30,6 +35,8 @@ const Dropdown = ({
     menuClassName,
     options,
     label,
+    inlineLabel,
+    size = "default",
     placeholder,
     defaultValue,
     disabled,
@@ -55,26 +62,58 @@ const Dropdown = ({
         }
     };
 
+    const isSmall = size === "sm";
+
     return (
-        <div className={twMerge("space-y-input-label", containerClassName)}>
+        <div
+            className={twMerge(
+                "space-y-input-label",
+                isSmall && "w-max space-y-0",
+                containerClassName
+            )}
+        >
             {label && <InputLabel text={label} />}
-            <div ref={containerRef} className="relative w-full">
+            <div
+                ref={containerRef}
+                className={twMerge("relative w-full", isSmall && "w-max")}
+            >
                 {/* Dropdown Element */}
                 <button
                     type="button"
                     disabled={disabled}
                     onClick={() => setIsOpen((prev) => !prev)}
                     className={twMerge(
-                        "input-default flex w-full cursor-pointer items-center gap-2.5 p-2 text-left disabled:cursor-not-allowed",
-                        selectedOption?.description && "h-auto! py-1.5",
+                        "flex cursor-pointer items-center text-left disabled:cursor-not-allowed",
+                        // Compact filter build its own styling - layering it over
+                        // input-default loses, since that class wins on specificity
+                        isSmall
+                            ? "border-input-border hover:border-input-border-hover bg-surface-raised text-text-primary h-9.5 w-max gap-1.5 rounded-[7px] border px-3 font-mono text-[11px] transition-colors"
+                            : "input-default w-full gap-2 p-2",
+                        !isSmall &&
+                            selectedOption?.description &&
+                            "h-auto! py-1.5",
                         className
                     )}
                 >
+                    {inlineLabel && (
+                        <DropdownInlineLabel
+                            className={
+                                isSmall ? "text-[10.5px]" : "text-[11px]"
+                            }
+                            text={inlineLabel}
+                        />
+                    )}
                     {selectedOption?.icon}
-                    <span className="flex min-w-0 flex-1 flex-col">
+                    <span
+                        className={twMerge(
+                            "flex min-w-0 flex-col",
+                            isSmall ? "shrink-0" : "flex-1"
+                        )}
+                    >
                         <span
                             className={twMerge(
-                                "truncate font-sans",
+                                "truncate",
+                                isSmall ? "lowercase" : "font-sans",
                                 !selectedOption && "text-text-disabled"
                             )}
                         >
@@ -88,11 +127,11 @@ const Dropdown = ({
                             </span>
                         )}
                     </span>
-                    <ChevronRightIcon
-                        size={16}
+                    <ChevronDownIcon
+                        size={isSmall ? 12 : 16}
                         className={twMerge(
-                            "text-text-secondary shrink-0 transition-transform",
-                            isOpen && "rotate-90"
+                            "text-text-disabled shrink-0 transition-transform",
+                            isOpen && "rotate-180"
                         )}
                     />
                 </button>
@@ -102,8 +141,10 @@ const Dropdown = ({
                     <Popout
                         xPos="right"
                         yPos="bottom"
+                        title={label ?? inlineLabel}
                         className={twMerge(
-                            "flex max-h-64 w-full flex-col gap-0.5 overflow-y-auto rounded-md",
+                            "flex max-h-100 flex-col overflow-y-auto",
+                            isSmall ? "min-w-40" : "w-full",
                             menuClassName
                         )}
                     >
@@ -116,7 +157,7 @@ const Dropdown = ({
                                     type="button"
                                     onClick={() => handleSelect(o)}
                                     className={twMerge(
-                                        "text-text-secondary hover:bg-surface-muted hover:text-text-primary flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2.5 py-2 text-left font-mono text-[13px] tracking-wide transition-colors",
+                                        "text-text-secondary hover:bg-surface-hover hover:text-text-primary flex w-full cursor-pointer items-center gap-2.5 px-3 py-2 text-left text-[13px] transition-colors",
                                         isSelected && "text-text-primary"
                                     )}
                                 >

@@ -1,6 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import type { TicketPriority } from "../../api/tickets";
 import { useMemo } from "react";
+import PriorityFlag from "./PriorityFlag";
 
 interface PriorityTagProps {
     className?: string;
@@ -11,22 +12,23 @@ const PriorityTag = ({ className, priority }: PriorityTagProps) => {
     const colorClasses = useMemo(() => {
         switch (priority) {
             case "low":
-                return "bg-ticket-priority-low/15 text-ticket-priority-low";
+                return "border-ticket-priority-low/32 text-ticket-priority-low";
             case "medium":
-                return "bg-ticket-priority-medium/15 text-ticket-priority-medium";
+                return "border-ticket-priority-medium/30 text-ticket-priority-medium";
             case "high":
-                return "bg-ticket-priority-high/15 text-ticket-priority-high";
+                return "border-ticket-priority-high/26 text-ticket-priority-high";
         }
     }, [priority]);
 
     return (
         <div
             className={twMerge(
-                "h-max w-max rounded px-2 py-0.5 font-mono text-[10px] font-medium tracking-wider uppercase",
+                "flex h-6 w-max items-center gap-1.5 rounded-[5px] border px-2.5 font-mono text-[10px] lowercase",
                 colorClasses,
                 className
             )}
         >
+            <PriorityFlag priority={priority} size={10} />
             {priority}
         </div>
     );

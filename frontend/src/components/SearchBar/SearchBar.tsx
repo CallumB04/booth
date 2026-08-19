@@ -40,13 +40,13 @@ const SearchBar = ({
                     disabled={disabled}
                     onChange={handleChange}
                     className={twMerge(
-                        "input-default relative pl-10!",
+                        "input-default relative pl-9.5!",
                         className
                     )}
                 />
                 <SearchIcon
-                    size={16}
-                    className="text-text-secondary absolute top-1/2 left-3 -translate-y-1/2"
+                    size={15}
+                    className="text-text-disabled absolute top-1/2 left-3 -translate-y-1/2"
                 />
             </div>
         </div>

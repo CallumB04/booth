@@ -17,7 +17,7 @@ const ClickableGroup = ({
     return (
         <div
             className={twMerge(
-                "hover:bg-surface-muted text-text-primary flex w-max cursor-pointer items-center gap-2 rounded-md p-1.5 transition-colors",
+                "hover:bg-surface-hover text-text-secondary hover:text-text-primary flex w-max cursor-pointer items-center gap-2 rounded-lg p-1.5 transition-colors",
                 className
             )}
             onClick={(e) => {
